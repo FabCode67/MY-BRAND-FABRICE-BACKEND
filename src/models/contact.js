@@ -1,9 +1,23 @@
 import mongoose from'mongoose'
 
-const contactSchema = mongoose.Schema({
-    name:"String",
-    email:"String",
-    message:"String"
-})
+const contactSchema = new mongoose.Schema({
+    name: {
+        type: String,
+        required: true,
+        minlength: 3,
+        maxlength: 30
+    },
+    email: {
+        type: String,
+        required: true,
+        match: /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/
+    },
+    message: {
+        type: String,
+        required: true
+    }
+});
+
+
 
 module.exports = mongoose.model("contact", contactSchema)

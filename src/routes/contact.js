@@ -1,10 +1,12 @@
 
-const express = require('express')
+import express from'express'
 const router = express.Router();
 
-const { postMsg, getMsg,deleteContact} = require('./../controllers/contact');
+const { postMsg, getMsg,deleteContact,countContact} = require('./../controllers/contact');
 
 router.post('/contact', postMsg);
-router.get("/contact", getMsg);
+router.get("/contact", getMsg); 
 router.delete('/contact/:id', deleteContact);
+router.get('/contact/count', countContact);
+
 module.exports = router;

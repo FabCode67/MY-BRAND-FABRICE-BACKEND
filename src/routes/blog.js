@@ -1,7 +1,10 @@
 import express from 'express';
 const router = express.Router();
-import multer from 'multer'; // for handling image upload
+import multer from 'multer';
 import path from'path';
+
+
+/*=====================================================CLOUDINARY CONFIG==============================================*/
 
 require('dotenv').config();
 const cloudinary = require('cloudinary').v2;
@@ -10,6 +13,10 @@ cloudinary.config({
   api_key: process.env.CLOUDINARY_API_KEY, 
   api_secret: process.env.CLOUDINARY_API_SECRET
 });
+/*=====================================================CLOUDINARY CONFIG==============================================*/
+
+
+/*=====================================================UPLOAD FOLDER WITH MULTER==============================================*/
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -20,12 +27,25 @@ const storage = multer.diskStorage({
   }
 });
 const upload = multer({ storage });
+const { authenticat } = require('./../controllers/login')
+const { createBlog, getAllBlogs, getSingleBlog, updateBlog, deleteBlog,addComment,deleteComment,countComments,countBlogs } = require('./../controllers/blog');
+/*=====================================================UPLOAD FOLDER WITH MULTER==============================================*/
 
-const { createBlog, getAllBlogs, getSingleBlog, updateBlog, deleteBlog } = require('./../controllers/blog');
-router.post('/blog', upload.single('blogImage'), createBlog);
+
+/*=====================================================ALL ENDPOINTS==============================================*/
+
+
+router.post('/blog', upload.single('blogImage'),authenticat, createBlog);
 router.get("/blog", getAllBlogs);
-router.get('/blog/:id', getSingleBlog);
-router.patch('/blog/:id', upload.single('blogImage'), updateBlog);
-router.delete('/blog/:id', deleteBlog);
+router.get('/blog/:id', authenticat, getSingleBlog);
+router.patch('/blog/:id', upload.single('blogImage'),authenticat, updateBlog);
+router.delete('/blog/:id', authenticat, deleteBlog);
+router.delete('/comments/:id/delete', deleteComment)
+router.post('/blog/:id/comment', authenticat, addComment,updateBlog);
+router.get("/blogs/:id/comments/count", countComments);
+router.get("/blogs/count", countBlogs);
+/*=====================================================ALL ENDPOINTS==============================================*/
+
+
 
 module.exports = router;
