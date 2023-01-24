@@ -19,6 +19,7 @@ export const createBlog = async (req, res) => {
 
     if (existingBlog) {
         return res.status(400).json({
+            status:"fail", 
             message: 'Blog title and content already exist'
         });
     }
@@ -37,8 +38,9 @@ export const createBlog = async (req, res) => {
     blog.save()
         .then(result => {
             res.status(201).json({
+                status:"success",
                 message: 'Blog created successfully',
-                createdBlog: {
+                data: {
                     _id: result._id,
                     blogTitle: result.blogTitle,
                     blogContent: result.blogContent,
@@ -48,6 +50,7 @@ export const createBlog = async (req, res) => {
         })
         .catch(err => {
             res.status(500).json({
+                status:"fail",
                 error: err
             });
         });
@@ -65,10 +68,10 @@ export const createBlog = async (req, res) => {
 export const getAllBlogs = async (req, res) => {
     try {
         const query = await Blog.find();
-        res.send(query);
+        res.send({status:"success",data:query});
     } catch (err) {
         res.status(404);
-        res.send({ error: "Blogs not found" });
+        res.send({ status:"fail", message: "Blogs not found" });
     }
 };
 /*=====================================================GET ALL BLOG=========================================*/
@@ -85,15 +88,18 @@ export const getSingleBlog = (req, res) => {
         .then(blog => {
             if (!blog) {
                 return res.status(404).json({
+                    status:"fail",
                     message: "Blog not found"
                 });
             }
             res.status(200).json({
+                status:"success",
                 blog: blog
             });
         })
         .catch(err => {
             res.status(500).json({
+                status:"fail",
                 error: err
             });
             console.log(err);
@@ -116,6 +122,7 @@ export const updateBlog = async (req, res) => {
 
     if (existingBlog) {
         return res.status(400).json({
+            status:"fail",
             message: 'Blog title and content already exist'
         });
     }
@@ -146,11 +153,13 @@ export const updateBlog = async (req, res) => {
         .exec()
         .then(result => {
             res.status(200).json({
+                status:"success",
                 message: 'Blog updated successfully'
             });
         })
         .catch(err => {
             res.status(500).json({
+                status:"fail",
                 error: err
               });
             });
@@ -166,13 +175,13 @@ export const updateBlog = async (req, res) => {
         try {
             const blogToDelete = await Blog.findOne({_id: req.params.id});
             if (!blogToDelete) {
-                res.status(404).send({ error: 'blog not found' });
+                res.status(404).send({ status:"fail", message: 'blog not found' });
                 return;
             }
             await Blog.deleteOne({ _id: req.params.id });
-            res.status(200).json({message:"blog deleted successfully"})
+            res.status(200).json({status:"success",message:"blog deleted successfully"})
         } catch (err) {
-            res.status(404).send({ error: "Blog not found" });
+            res.status(404).send({ status:"fail",message: "Blog not found" });
         }
     };
 /*=====================================================DELETE SINGLE BLOG=========================================*/
@@ -185,19 +194,20 @@ export const addComment = async (req, res) => {
     try {
         // Find the specific blog that the user is trying to add a comment to
         const blog = await Blog.findById(req.params.id);
+        console.log(blog);
         if (!blog) {
-            return res.status(404).send({ error: "Blog not found" });
+            return res.status(404).send({ status:"fail",message: "Blog not found" });
         }
         const token = req.headers.authorization;
         const decoded = jwt.verify(token, secretKey);
         
 
         if (!decoded) {
-            return res.status(401).send({ error: "Unauthorized" });
+            return res.status(401).send({ status:"fail",message: "Unauthorized" });
             }
             const user = await User.findOne({username: decoded.username});
             if (!user) {
-            return res.status(404).send({ error: "User not found" });
+            return res.status(404).send({ status:"fail", message: "User not found" });
             }
             const comment = {
                 username: user.username,
@@ -205,9 +215,10 @@ export const addComment = async (req, res) => {
             }
             
             await Blog.findByIdAndUpdate(req.params.id, { $push: { comments: comment } });
-            res.status(201).send({ message: "Comment added successfully" });
+            res.status(201).send({ status:"success",message: "Comment added successfully" });
         } catch (err) {
-            res.status(500).send({ error: "Error adding comment" });
+            res.status(500).send({ status:"success",message: "Error adding comment" });
+            console.log(err);
         }
     }        
 
@@ -222,31 +233,35 @@ export const deleteComment = async (req, res) => {
         const decoded = jwt.verify(token, secretKey);
         
         if (!decoded) {
-            return res.status(401).send({ error: "Unauthorized" });
+            return res.status(401).send({ status:"fail",message: "Unauthorized" });
         }
         const user = await User.findOne({username: decoded.username});
         if (!user) {
-            return res.status(404).send({ error: "User not found" });
+            return res.status(404).send({status:"fail", message: "User not found" });
         }
 
-        const blog = await Blog.findById(req.params.blogId);
+        // const blog = await Blog.findById(req.params.id);
+        const blog = await Blog.findOne({_id: req.params.id});
+
+        console.log(blog);
         if (!blog) {
-            return res.status(404).send({ error: "Blog not found" });
+            return res.status(404).send({ status:"fail",message: "Blog not found" });
         }
         
         const comment = blog.comments.find(c => c._id == req.params.commentId);
         if (!comment) {
-            return res.status(404).send({ error: "Comment not found" });
+            return res.status(404).send({status:"fail", message: "Comment not found" });
         }
         
-        if (comment.user.toString() !== user._id.toString() && !user.isAdmin) {
-            return res.status(401).send({ error: "Unauthorized" });
-        }
+        // if (comment.user.toString() !== user._id.toString() && !user.isAdmin) {
+        //     return res.status(401).send({ error: "Unauthorized" });
+        // }
 
-        await Blog.findByIdAndUpdate(req.params.blogId, { $pull: { comments: { _id: req.params.commentId } } });
-        res.status(200).send({ message: "Comment deleted successfully" });
+        await Blog.findByIdAndUpdate(req.params.id, { $pull: { comments: { _id: req.params.commentId } } });
+        res.status(200).send({ status:"success",message: "Comment deleted successfully" });
     } catch (err) {
-        res.status(500).send({ error: "Error deleting comment" });
+        res.status(500).send({ status:"fail",message: "Error deleting comment" });
+        console.log(err);
     }
 }
 
@@ -260,9 +275,9 @@ export const countBlogs = async (req, res) => {
     try {
         const blogCount = await Blog.countDocuments();
 
-        res.status(200).send({ message: `There are ${blogCount} blogs in the collection.` });
+        res.status(200).send({ status:"success",message: `There are ${blogCount} blogs in the collection.` });
     } catch (err) {
-        res.status(500).send({ error: "Error counting blogs" });
+        res.status(500).send({ status:"fail",message: "Error counting blogs" });
     }
 }
 /*=====================================================COUNT BLOG=========================================*/
@@ -275,14 +290,14 @@ export const countComments = async (req, res) => {
     try {
         const blog = await Blog.findById(req.params.id);
         if (!blog) {
-            return res.status(404).send({ error: "Blog not found" });
+            return res.status(404).send({ status:"fail", message: "Blog not found" });
         }
 
         const commentCount = blog.comments.length;
 
-        res.status(200).send({ message: `Blog has ${commentCount} comments.` });
+        res.status(200).send({status:"success", message: `Blog has ${commentCount} comments.` });
     } catch (err) {
-        res.status(500).send({ error: "Error counting comments" });
+        res.status(500).send({status:"fail", message: "Error counting comments" });
     }
 }
 
