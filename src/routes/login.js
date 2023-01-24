@@ -1,9 +1,10 @@
-import express from 'express'
-const router = express.Router();
-const { login, getProfile } = require('./../controllers/login');
+import express from "express";
 
-router.post('/login', login)
-router.post('/login', login)
+const router = express.Router();
+const { login, getProfile } = require("../controllers/login");
+
+router.post("/login", login);
+router.post("/login", login);
 router.get("/profile", getProfile);
 
-module.exports = router
+module.exports = router;

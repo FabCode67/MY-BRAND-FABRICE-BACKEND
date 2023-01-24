@@ -1,19 +1,26 @@
 module.exports = {
   env: {
     browser: true,
-    es2021: true
+    es2021: true,
   },
-  extends: 'airbnb-base',
+  extends: "airbnb-base",
   overrides: [],
   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module'
+    ecmaVersion: "latest",
+    sourceType: "module",
   },
+  // rules: {
+  //   'prettier/prettier': 'error',
+  //   quotes: 'off',
+  //   avoidEscape: true,
+  //   allowTemplateLiterals: true
+  // },
   rules: {
-    'prettier/prettier': 'error',
-    quotes: 'off',
-    avoidEscape: true,
-    allowTemplateLiterals: true
+    "prettier/prettier": "error",
+    quotes: "off",
+    "template-curly-spacing": 2,
+    "template-literals": 2,
   },
-  plugins: ['prettier']
+
+  plugins: ["prettier"],
 };
