@@ -3,19 +3,13 @@ const postUser = require ('./userSwagga/postUser');
 const deleteUser = require ('./userSwagga/deleteUser');
 const countUser = require ('./userSwagga/countUser')
 
-
-
 const login = require ('./logInSwagger/login')
 const profile = require ('./logInSwagger/profile')
-
-
-
 
 const getContact = require ('./contactSwagger/getContact');
 const postContact = require ('./contactSwagger/postContact')
 const deleteContact = require ('./contactSwagger/deleteContact')
 const countContact = require ('./contactSwagger/countContact')
-
 
 const createBlog = require('./blogSwagger/createBlog')
 const getSingleBlog = require('./blogSwagger/getSingleBlog')

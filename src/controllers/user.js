@@ -1,4 +1,3 @@
-import express from 'express'
 import bcrypt  from 'bcrypt';
 import User  from "../models/user"
 
@@ -17,33 +16,33 @@ export const registerUser = async(req,res)=>{
         // check if the email or username is already registered
         const existingUser = await User.findOne({ $or: [{email: req.body.email}, {username: req.body.username}] });
         if (existingUser) {
-            res.status(400).send({ error: 'Email or username already exists' });
+            res.status(400).send({status:"fail", message: 'Email or username already exists' });
             return;
         }
 
         // Check if password and confirmPassword match
         const passwordsMatch = await bcrypt.compare(req.body.password, hashedComfirmPassword);
         if (!passwordsMatch) {
-            res.status(400).send({ error: 'Password and Confirm Password do not match' });
+            res.status(400).send({ status:"fail", message: 'Password and Confirm Password do not match' });
             return;
         }
 
         // check if gender is either Male or Female
         if (req.body.gender !== 'Male' && req.body.gender !== 'Female') {
-            res.status(400).send({ error: 'Invalid Gender' });
+            res.status(400).send({ status:"fail", message: 'Invalid Gender' });
             return;
         }
 
         // validate email
         const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         if (!emailRegex.test(req.body.email)) {
-            res.status(400).send({ error: 'Invalid Email' });
+            res.status(400).send({ status:"fail", message: 'Invalid Email' });
             return;
         }
 
         // validate username length
         if (req.body.username.length < 3 || req.body.username.length > 15) {
-            res.status(400).send({ error: 'Username must be between 3 and 15 characters' });
+            res.status(400).send({ status:"fail", message: 'Username must be between 3 and 15 characters' });
             return;
         }
        
@@ -55,10 +54,10 @@ export const registerUser = async(req,res)=>{
             confirmPassword:hashedComfirmPassword
         });
         await post.save()
-        res.send(post)
+        res.send({status:"success", data:post})
     }catch{
         res.status(404)
-        res.send({error:"Postman not found"})
+        res.send({status:"fail", message:"Postman not found"})
     }
 };
 /*=====================================================REGISTER USER==============================================*/
@@ -69,10 +68,10 @@ export const registerUser = async(req,res)=>{
 export const getUser = async(req,res)=>{
     try{
         const query = await User.find()
-        res.send(query)
+        res.send({status:"success", data:query})
     }catch{
         res.status(404)
-        res.send({error:"Postman not found"})
+        res.send({status:"fail", message:"Postman not found"})
     }
 
 }
@@ -87,16 +86,17 @@ export const deleteUser = async(req,res)=>{
      // check if user exists
      const userToDelete = await User.findOne({_id: req.params.id});
      if (!userToDelete) {
-         res.status(404).send({ error: 'user not found' });
+         res.status(404).send({ status:"fail", message: 'user not found' });
          return;
      }
 
         await User.deleteOne({_id: req.params.id})
         res.status(200).json({
+            status:"success",
             message: 'User deleted successfully'
         });
         }catch(error){
-        res.status(404).send({error:"user not found"})
+        res.status(404).send({status:"fail", message:"user not found"})
     }
 }
 
@@ -111,9 +111,9 @@ export const countUser = async (req, res) => {
         // Count the number of blogs in the collection
         const userCount = await User.countDocuments();
 
-        res.status(200).send({ message: `There are ${userCount} users in the collection.` });
+        res.status(200).send({ status:"success",message: `There are ${userCount} users in the collection.` });
     } catch (err) {
-        res.status(500).send({ error: "Error counting users" });
+        res.status(500).send({ status:"fail", message: "Error counting users" });
     }
 }
 

@@ -40,7 +40,7 @@ router.get("/blog", getAllBlogs);
 router.get('/blog/:id', authenticat, getSingleBlog);
 router.patch('/blog/:id', upload.single('blogImage'),authenticat, updateBlog);
 router.delete('/blog/:id', authenticat, deleteBlog);
-router.delete('/comments/:id/delete', deleteComment)
+router.delete('/blogs/:id/comments/:id', authenticat, deleteComment, updateBlog)
 router.post('/blog/:id/comment', authenticat, addComment,updateBlog);
 router.get("/blogs/:id/comments/count", countComments);
 router.get("/blogs/count", countBlogs);
