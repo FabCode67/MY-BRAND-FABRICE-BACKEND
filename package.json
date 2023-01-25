@@ -9,7 +9,6 @@
     "start": "npm run build && babel-node src/index.js",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix"
-
   },
   "repository": {
     "type": "git",
