@@ -6,7 +6,7 @@
   "scripts": {
     "test": "mocha --require @babel/register",
     "build": "babel src/index.js -d dist",
-    "start": "npm run build && nodemon --exec babel-node src/index.js",
+    "start": "npm run build && babel-node src/index.js",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix"
 
