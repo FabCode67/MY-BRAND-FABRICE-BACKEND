@@ -2,7 +2,7 @@ const chai = require("chai");
 const chaiHttp = require("chai-http");
 const { response } = require("express");
 const { array } = require("joi");
-const app = require("../src/index");
+import app  from "../src/index";
 
 chai.should();
 chai.use(chaiHttp);
