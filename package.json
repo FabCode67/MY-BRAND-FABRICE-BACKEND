@@ -5,11 +5,10 @@
   "main": "index.js",
   "scripts": {
     "test": "mocha --require @babel/register",
-    "build": "babel src/index.js -d dist",
-    "start": "npm run build && babel-node src/index.js",
+    "build": "babel src -d dist",
+    "start": "npm run build && @babel-node src/index.js",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix"
-
   },
   "repository": {
     "type": "git",
