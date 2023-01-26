@@ -4,7 +4,7 @@ const components = require("./components");
 const tags = require("./tags");
 const allAPI = require("./allApis");
 
-module.exports = {
+export default {
   ...basicInfo,
   ...servers,
   ...components,

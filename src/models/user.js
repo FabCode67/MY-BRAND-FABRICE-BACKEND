@@ -8,4 +8,4 @@ const userSchema = mongoose.Schema({
   confirmPassword: "String",
 });
 
-module.exports = mongoose.model("user", userSchema);
+export default mongoose.model("user", userSchema);

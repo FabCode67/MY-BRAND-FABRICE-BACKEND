@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   post: {
     tags: ["Comment blog API"],
     summary: "Add a comment to a specific blog",

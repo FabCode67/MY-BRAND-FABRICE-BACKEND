@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   component: {
     schemas: {
       // user schema

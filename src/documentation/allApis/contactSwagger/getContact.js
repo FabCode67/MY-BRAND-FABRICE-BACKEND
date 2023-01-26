@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   get: {
     tags: ["Contact API"],
     description: "Get all messages",

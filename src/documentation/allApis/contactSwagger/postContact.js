@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   post: {
     tags: ["Contact API"],
     description: "Post a new contact message",

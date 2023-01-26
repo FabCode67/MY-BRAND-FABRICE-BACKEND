@@ -59,4 +59,4 @@ router.get("/blogs/:id/comments/count", countComments);
 router.get("/blogs/count", countBlogs);
 /*= ====================================================ALL ENDPOINTS============================================== */
 
-module.exports = router;
+export default router;

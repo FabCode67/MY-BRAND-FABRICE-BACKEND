@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   post: {
     tags: ["User API"],
     description: "Create a new user",

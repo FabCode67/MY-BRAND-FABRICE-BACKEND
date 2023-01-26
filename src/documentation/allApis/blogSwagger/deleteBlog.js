@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   delete: {
     tags: ["Blog API"],
     summary: "Delete a blog post by ID",

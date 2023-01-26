@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   post: {
     tags: ["Authentication"],
     summary: "Login a user",

@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   get: {
     tags: ["Authentication"],
     description: "Get the profile of the logged-in user",

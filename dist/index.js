@@ -1,5 +1,9 @@
 "use strict";
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
 var _express = _interopRequireDefault(require("express"));
 var _dotenv = _interopRequireDefault(require("dotenv"));
 var _mongoose = _interopRequireDefault(require("mongoose"));
@@ -7,9 +11,9 @@ var _contact = _interopRequireDefault(require("./routes/contact"));
 var _user = _interopRequireDefault(require("./routes/user"));
 var _login = _interopRequireDefault(require("./routes/login"));
 var _blog = _interopRequireDefault(require("./routes/blog"));
+var _swaggerUiExpress = _interopRequireDefault(require("swagger-ui-express"));
+var _documentation = _interopRequireDefault(require("./documentation"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-const swaggerUI = require("swagger-ui-express");
-const docs = require("./documentation");
 _dotenv.default.config();
 _mongoose.default.set("strictQuery", true);
 const app = (0, _express.default)();
@@ -24,7 +28,7 @@ _mongoose.default.connect(`mongodb+srv://${process.env.ADMIN_NAME}:${process.env
   app.use("/api", _user.default);
   app.use("/api", _login.default);
   app.use("/api", _blog.default);
-  app.use("/api-doc", swaggerUI.serve, swaggerUI.setup(docs));
+  app.use("/api-doc", _swaggerUiExpress.default.serve, _swaggerUiExpress.default.setup(_documentation.default));
 
   /* ------------------------ by default*--------------------*/
   app.use((req, res) => {
@@ -38,4 +42,5 @@ _mongoose.default.connect(`mongodb+srv://${process.env.ADMIN_NAME}:${process.env
     console.log(`server started port ${PORT}...`);
   });
 });
-module.exports = app;
+var _default = app;
+exports.default = _default;

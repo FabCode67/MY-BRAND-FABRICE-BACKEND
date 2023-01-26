@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   // method of operation
   get: {
     tags: ["User API"], // operation's tag.
