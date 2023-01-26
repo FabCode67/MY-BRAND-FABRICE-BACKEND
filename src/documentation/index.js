@@ -1,8 +1,8 @@
-const basicInfo = require("./basicInfo");
-const servers = require("./server");
-const components = require("./components");
-const tags = require("./tags");
-const allAPI = require("./allApis");
+import basicInfo from "./basicInfo";
+import servers from "./server";
+import components from "./components";
+import tags from "./tags";
+import allAPI from "./allApis";
 
 export default {
   ...basicInfo,

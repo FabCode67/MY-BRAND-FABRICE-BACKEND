@@ -1,26 +1,26 @@
-const getUser = require("./userSwagga/getUser");
-const postUser = require("./userSwagga/postUser");
-const deleteUser = require("./userSwagga/deleteUser");
-const countUser = require("./userSwagga/countUser");
+import getUser from "./userSwagga/getUser";
+import postUser from "./userSwagga/postUser";
+import deleteUser from "./userSwagga/deleteUser";
+import countUser from "./userSwagga/countUser";
 
-const login = require("./logInSwagger/login");
-const profile = require("./logInSwagger/profile");
+import login from "./logInSwagger/login";
+import profile from "./logInSwagger/profile";
 
-const getContact = require("./contactSwagger/getContact");
-const postContact = require("./contactSwagger/postContact");
-const deleteContact = require("./contactSwagger/deleteContact");
-const countContact = require("./contactSwagger/countContact");
+import getContact from "./contactSwagger/getContact";
+import postContact from "./contactSwagger/postContact";
+import deleteContact from "./contactSwagger/deleteContact";
+import countContact from "./contactSwagger/countContact";
 
-const createBlog = require("./blogSwagger/createBlog");
-const getSingleBlog = require("./blogSwagger/getSingleBlog");
-const getAllBlogs = require("./blogSwagger/getAllBllogs");
-const updateBlog = require("./blogSwagger/updateBlog");
-const numberOfBlog = require("./blogSwagger/numberOfBlog");
-const deleteBlog = require("./blogSwagger/deleteBlog");
+import createBlog from "./blogSwagger/createBlog";
+import getSingleBlog from "./blogSwagger/getSingleBlog";
+import getAllBlogs from "./blogSwagger/getAllBllogs";
+import updateBlog from "./blogSwagger/updateBlog";
+import numberOfBlog from "./blogSwagger/numberOfBlog";
+import deleteBlog from "./blogSwagger/deleteBlog";
 
-const addComment = require("./blogSwagger/CommentSwagger/addComment");
-const deleteComment = require("./blogSwagger/CommentSwagger/deleteComment");
-const numberOfComment = require("./blogSwagger/CommentSwagger/numberOfComment");
+import addComment from "./blogSwagger/CommentSwagger/addComment";
+import deleteComment from "./blogSwagger/CommentSwagger/deleteComment";
+import numberOfComment from "./blogSwagger/CommentSwagger/numberOfComment";
 
 export default {
   paths: {
