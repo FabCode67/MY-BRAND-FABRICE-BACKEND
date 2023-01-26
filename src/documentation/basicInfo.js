@@ -6,8 +6,7 @@ export default {
     version: "1.0.0", // version number
     contact: {
       name: "Fabrice MWANAFUNZI", // your name
-      email: "mwanafunzifabrce@web.com", // your email
-      url: "http://fabcode67.github.io/CAPSTONE/#", // your website
+      email: "mwanafunzifabrce@web.com"
     },
   },
 };
