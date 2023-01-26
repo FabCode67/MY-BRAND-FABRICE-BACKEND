@@ -7,4 +7,4 @@ router.post("/login", login);
 router.post("/login", login);
 router.get("/profile", getProfile);
 
-module.exports = router;
+export default router;

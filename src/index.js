@@ -6,8 +6,8 @@ import userRoutes from "./routes/user";
 import loginRoutes from "./routes/login";
 import blogRoutes from "./routes/blog";
 
-const swaggerUI = require("swagger-ui-express");
-const docs = require("./documentation");
+import swaggerUI from "swagger-ui-express";
+import docs from "./documentation";
 
 dotenv.config();
 mongoose.set("strictQuery", true);
@@ -37,4 +37,4 @@ mongoose
       console.log(`server started port ${PORT}...`);
     });
   });
-module.exports = app;
+export default app;

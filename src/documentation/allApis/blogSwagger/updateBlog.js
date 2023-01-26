@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   patch: {
     tags: ["Blog API"],
     summary: "Update a blog by id",

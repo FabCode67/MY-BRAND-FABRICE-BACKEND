@@ -71,7 +71,7 @@ export const countContact = async (req, res) => {
 
 /* ---------------------------GET ALL MESSAGES---------------------------- */
 
-module.exports = {
+export default {
   postMsg,
   getMsg,
   deleteContact,

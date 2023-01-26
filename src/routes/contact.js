@@ -14,4 +14,4 @@ router.get("/contact", getMsg);
 router.delete("/contact/:id", deleteContact);
 router.get("/contact/count", countContact);
 
-module.exports = router;
+export default router;

@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   post: {
     tags: ["Blog API"],
     description: "Create a new blog post",

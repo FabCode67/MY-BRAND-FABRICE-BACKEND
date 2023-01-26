@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   get: {
     tags: ["Blog API"],
     summary: "Get all blogs",

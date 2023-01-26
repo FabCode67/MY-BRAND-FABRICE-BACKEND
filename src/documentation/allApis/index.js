@@ -22,7 +22,7 @@ const addComment = require("./blogSwagger/CommentSwagger/addComment");
 const deleteComment = require("./blogSwagger/CommentSwagger/deleteComment");
 const numberOfComment = require("./blogSwagger/CommentSwagger/numberOfComment");
 
-module.exports = {
+export default {
   paths: {
     "/api/user": {
       ...postUser,

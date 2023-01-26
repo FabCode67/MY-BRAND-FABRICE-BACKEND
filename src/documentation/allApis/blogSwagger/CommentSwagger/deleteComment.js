@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   delete: {
     tags: ["Comment blog API"],
     summary: "Delete a comment on a specific blog",

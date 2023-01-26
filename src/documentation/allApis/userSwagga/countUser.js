@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   get: {
     summary: "Count the number of users",
     tags: ["User API"],

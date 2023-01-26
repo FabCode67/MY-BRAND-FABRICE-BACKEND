@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   delete: {
     tags: ["Contact API"],
     description: "Delete a contact by id",

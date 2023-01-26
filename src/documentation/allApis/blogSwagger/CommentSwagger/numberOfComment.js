@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   get: {
     tags: ["Comment blog API"],
     summary: "Count the number of comments on a specific blog",

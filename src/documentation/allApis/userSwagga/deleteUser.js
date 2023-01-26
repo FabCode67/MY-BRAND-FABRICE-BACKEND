@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   // operation's method.
   delete: {
     tags: ["User API"], // operation's tag
