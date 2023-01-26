@@ -1,4 +1,4 @@
-export default {
+module.exports = {
   env: {
     browser: true,
     es2021: true,
@@ -9,12 +9,6 @@ export default {
     ecmaVersion: "latest",
     sourceType: "module",
   },
-  // rules: {
-  //   'prettier/prettier': 'error',
-  //   quotes: 'off',
-  //   avoidEscape: true,
-  //   allowTemplateLiterals: true
-  // },
   rules: {
     "prettier/prettier": "error",
     quotes: "off",

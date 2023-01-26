@@ -6,8 +6,8 @@ import userRoutes from "./routes/user";
 import loginRoutes from "./routes/login";
 import blogRoutes from "./routes/blog";
 
-import swaggerUI from "swagger-ui-express";
 import docs from "./documentation";
+import swaggerUI from "swagger-ui-express";
 
 dotenv.config();
 mongoose.set("strictQuery", true);
@@ -26,7 +26,9 @@ mongoose
     app.use("/api", userRoutes);
     app.use("/api", loginRoutes);
     app.use("/api", blogRoutes);
+    // app.use("/api-doc", swaggerUI.serve, swaggerUI.setup(docs));
     app.use("/api-doc", swaggerUI.serve, swaggerUI.setup(docs));
+
 
     /* ------------------------ by default*--------------------*/
     app.use((req, res) => {
