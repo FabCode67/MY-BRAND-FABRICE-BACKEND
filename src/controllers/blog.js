@@ -48,10 +48,11 @@ export const createBlog = async (req, res) => {
       });
     })
     .catch((err) => {
-      res.status(500).json({
+      res.status(404).json({
         status: "fail",
         error: err,
       });
+      
     });
 };
 

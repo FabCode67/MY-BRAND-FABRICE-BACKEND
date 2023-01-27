@@ -3,15 +3,19 @@ export default {
     tags: ["Blog API"],
     description: "Create a new blog post",
     operationId: "createBlog",
-    parameters: [
+    security: [{
+      BearerAuth: []
+  }],
+  parameters: [
       {
-        in: "header",
-        name: "Authorization",
-        description: "User's JWT token",
-        required: true,
-        type: "string",
-      },
-    ],
+          in: "header",
+          name: "Authorization",
+          type: "apiKey",
+          example: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2M2NjOTk5YzA0NTczNjk0MWEwOWM0YjgiLCJ1c2VybmFtZSI6ImpvaG5kb2UiLCJpYXQiOjE2NzQ3NDQzNzZ9.Osf4XZI8lLj3FJOGqb0dF_fo25Fshv2OlF0O3AkB508",
+          required: true,
+          description: "Bearer token"
+      }
+  ],
 
     requestBody: {
       content: {

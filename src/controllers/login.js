@@ -45,20 +45,33 @@ export const login = async (req, res) => {
 
 /*= ====================================================USER PROFILE========================================= */
 
+// export const getProfile = async (req, res) => {
+//   try {
+//     const token = req.headers.authorization;
+
+//     const decoded = jwt.verify(token, secretKey);
+
+//     const user = await User.findOne({ _id: decoded.userId });
+
+//     res.send({ status: "success", data: user });
+//   } catch (error) {
+//     res.status(401).send({ status: "fail", error: "Unauthorized" });
+//   }
+// };
+/*= ====================================================USER PROFILE========================================= */
 export const getProfile = async (req, res) => {
   try {
     const token = req.headers.authorization;
-
+    if (!token) {
+      res.status(401).send({ status: "fail", error: "Unauthorized" });
+    }
     const decoded = jwt.verify(token, secretKey);
-
     const user = await User.findOne({ _id: decoded.userId });
-
     res.send({ status: "success", data: user });
   } catch (error) {
     res.status(401).send({ status: "fail", error: "Unauthorized" });
   }
 };
-/*= ====================================================USER PROFILE========================================= */
 
 /*= ====================================================USER AUTHOTICATION========================================= */
 
