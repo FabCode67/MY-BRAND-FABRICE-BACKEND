@@ -211,7 +211,7 @@ export const addComment = async (req, res) => {
   } catch (err) {
     res
       .status(500)
-      .send({ status: "success", message: "Error adding comment" });
+      .send({ status: "fail", message: "Error adding comment" });
     console.log(err);
   }
 };

@@ -10,4 +10,15 @@ export default {
       url: "http://fabcode67.github.io/CAPSTONE/#", // your website
     },
   },
-};
+  components: {
+    securitySchemes: {
+      BearerAuth: {
+        type: 'apiKey',
+        scheme: 'bearer',
+        bearerFormat: 'JWT',
+        name:"Authorization",
+        in:"header"
+      },
+    },
+}
+}

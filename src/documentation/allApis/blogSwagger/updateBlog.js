@@ -3,14 +3,10 @@ export default {
     tags: ["Blog API"],
     summary: "Update a blog by id",
     operationId: "updateBlog",
+    security: [{
+      BearerAuth: []
+  }],
     parameters: [
-      {
-        in: "header",
-        name: "Authorization",
-        description: "User's JWT token",
-        required: true,
-        type: "string",
-      },
       {
         in: "path",
         name: "id",
