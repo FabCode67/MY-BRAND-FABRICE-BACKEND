@@ -3,14 +3,11 @@ export default {
     tags: ["Comment blog API"],
     summary: "Delete a comment on a specific blog",
     operationId: "deleteComment",
+    security: [{
+      BearerAuth: []
+  }],
     parameters: [
-      {
-        in: "header",
-        name: "Authorization",
-        description: "User's JWT token",
-        required: true,
-        type: "string",
-      },
+    
       {
         in: "path",
         name: "blogId",

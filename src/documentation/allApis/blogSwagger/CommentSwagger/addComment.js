@@ -3,14 +3,10 @@ export default {
     tags: ["Comment blog API"],
     summary: "Add a comment to a specific blog",
     operationId: "addComment",
+    security: [{
+      BearerAuth: []
+     }],
     parameters: [
-      {
-        in: "header",
-        name: "Authorization",
-        description: "User's JWT token",
-        required: true,
-        type: "string",
-      },
       {
         in: "path",
         name: "id",

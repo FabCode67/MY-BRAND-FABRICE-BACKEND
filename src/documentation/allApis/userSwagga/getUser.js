@@ -1,11 +1,11 @@
 export default {
-  // method of operation
+
   get: {
-    tags: ["User API"], // operation's tag.
-    description: "Get all users", // operation's desc.
-    operationId: "getUsers", // unique operation id.
-    parameters: [], // expected params.
-    // expected responses
+    tags: ["User API"],
+    description: "Get all users", 
+    operationId: "getUsers", 
+    parameters: [], 
+   
     responses: {
       200: {
         description: "OK",

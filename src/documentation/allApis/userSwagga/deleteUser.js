@@ -1,34 +1,36 @@
 export default {
-  // operation's method.
   delete: {
-    tags: ["User API"], // operation's tag
-    description: "Deleting a user", // short desc
-    operationId: "deleteUser", // unique operation id
+    tags: ["User API"], 
+    description: "Deleting a user", 
+    operationId: "deleteUser", 
+    security: [{
+      BearerAuth: []
+  }],
     parameters: [
-      // expected parameters
+      
       {
-        name: "id", // name of param
-        in: "path", // location of param
+        name: "id",
+        in: "path", 
         schema: {
           type: "string",
         },
-        required: true, // mandatory
-        description: "Deleting a user by id", // param desc
+        required: true,
+        description: "Deleting a user by id", 
       },
     ],
-    // expected responses
+  
     responses: {
-      // response code
+    
       200: {
-        description: "User deleted successfully", // response desc
+        description: "User deleted successfully", 
       },
-      // response code
+    
       404: {
-        description: "User not found", // response desc
+        description: "User not found", 
       },
-      // response code
+     
       500: {
-        description: "Server error", // response desc
+        description: "Server error", 
       },
     },
   },

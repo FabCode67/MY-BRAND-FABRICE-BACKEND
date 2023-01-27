@@ -3,18 +3,14 @@ export default {
     tags: ["Blog API"],
     summary: "Get a single blog by ID",
     operationId: "getSingleBlog",
+    security: [{
+      BearerAuth: []
+  }],
     parameters: [
       {
         in: "path",
         name: "id",
         description: "ID of the blog to retrieve",
-        required: true,
-        type: "string",
-      },
-      {
-        in: "header",
-        name: "Authorization",
-        description: "User's JWT token",
         required: true,
         type: "string",
       },

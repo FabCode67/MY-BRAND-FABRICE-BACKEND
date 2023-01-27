@@ -2,13 +2,13 @@
 import express from 'express';
 
 const router = express.Router();
-const { authenticat } = require("../controllers/login");
-const {
+import { authenticat }  from "../controllers/login";
+import {
   registerUser,
   getUser,
   deleteUser,
   countUser,
-} = require("../controllers/user");
+} from "../controllers/user";
 
 router.post("/user", registerUser);
 router.get("/user", authenticat, getUser);

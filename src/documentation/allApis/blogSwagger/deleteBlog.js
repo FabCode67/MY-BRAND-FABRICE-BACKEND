@@ -3,14 +3,10 @@ export default {
     tags: ["Blog API"],
     summary: "Delete a blog post by ID",
     operationId: "deleteBlog",
+    security: [{
+      BearerAuth: []
+  }],
     parameters: [
-      {
-        in: "header",
-        name: "Authorization",
-        description: "User's JWT token",
-        required: true,
-        type: "string",
-      },
       {
         in: "path",
         name: "id",

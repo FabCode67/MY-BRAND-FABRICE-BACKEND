@@ -27,8 +27,8 @@ const storage = multer.diskStorage({
   },
 });
 const upload = multer({ storage });
-const { authenticat } = require("../controllers/login");
-const {
+import  {authenticat}  from "../controllers/login";
+import {
   createBlog,
   getAllBlogs,
   getSingleBlog,
@@ -38,7 +38,7 @@ const {
   deleteComment,
   countComments,
   countBlogs,
-} = require("../controllers/blog");
+}  from "../controllers/blog";
 /*= ====================================================UPLOAD FOLDER WITH MULTER============================================== */
 
 /*= ====================================================ALL ENDPOINTS============================================== */
@@ -55,8 +55,8 @@ router.delete(
   updateBlog,
 );
 router.post("/blog/:id/comment", authenticat, addComment, updateBlog);
-router.get("/blogs/:id/comments/count", countComments);
-router.get("/blogs/count", countBlogs);
+router.get("/blog/:id/comment/count", countComments);
+router.get("/blog/count", countBlogs);
 /*= ====================================================ALL ENDPOINTS============================================== */
 
 export default router;
