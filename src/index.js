@@ -27,7 +27,7 @@ mongoose
     app.use("/api", loginRoutes);
     app.use("/api", blogRoutes);
     // app.use("/api-doc", swaggerUI.serve, swaggerUI.setup(docs));
-    app.use("/api-doc", swaggerUI.serve, swaggerUI.setup(docs));
+    app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(docs));
 
 
     /* ------------------------ by default*--------------------*/
