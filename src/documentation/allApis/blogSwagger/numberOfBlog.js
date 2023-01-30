@@ -3,6 +3,9 @@ export default {
     tags: ["Blog API"],
     summary: "Get the count of all blogs",
     operationId: "countBlogs",
+    security: [{
+      BearerAuth: []
+  }],
     responses: {
       200: {
         description: "The count of all blogs",
