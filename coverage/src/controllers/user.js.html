@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">47.27% </span>
+                <span class="strong">65.45% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>26/55</span>
+                <span class='fraction'>36/55</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">40% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>2/5</span>
+                <span class='fraction'>5/5</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">46.29% </span>
+                <span class="strong">64.81% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>25/54</span>
+                <span class='fraction'>35/54</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line medium'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -278,9 +278,9 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -291,21 +291,21 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -314,16 +314,16 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -410,10 +410,10 @@ export const registerUser = async (req, res) =&gt; {
 &nbsp;
 /*======================================GET ALL USER============================================== */
 &nbsp;
-export const getUser = <span class="fstat-no" title="function not covered" >async (r</span>eq, res) =&gt; {
-<span class="cstat-no" title="statement not covered" >  try {</span>
-    const query = <span class="cstat-no" title="statement not covered" >await User.find();</span>
-<span class="cstat-no" title="statement not covered" >    res.status(200).send({ status: "success", data: query });</span>
+export const getUser = async (req, res) =&gt; {
+  try {
+    const query = await User.find();
+    res.status(200).send({ status: "success", data: query });
   } catch {
 <span class="cstat-no" title="statement not covered" >    res.status(404);</span>
 <span class="cstat-no" title="statement not covered" >    res.send({ status: "fail", message: "Postman not found" });</span>
@@ -423,10 +423,10 @@ export const getUser = <span class="fstat-no" title="function not covered" >asyn
 &nbsp;
 /*======================================DELETE SINGLE USER============================================== */
 &nbsp;
-export const deleteUser = <span class="fstat-no" title="function not covered" >async (r</span>eq, res) =&gt; {
-<span class="cstat-no" title="statement not covered" >  try {</span>
+export const deleteUser = async (req, res) =&gt; {
+  try {
     // check if user exists
-    const userToDelete = <span class="cstat-no" title="statement not covered" >await User.findOne({ _id: req.params.id });</span>
+    const userToDelete = await User.findOne({ _id: req.params.id });
 <span class="cstat-no" title="statement not covered" >    if (!userToDelete) {</span>
 <span class="cstat-no" title="statement not covered" >      res.status(404).send({ status: "fail", message: "user not found" });</span>
 <span class="cstat-no" title="statement not covered" >      return;</span>
@@ -438,7 +438,7 @@ export const deleteUser = <span class="fstat-no" title="function not covered" >a
       message: "User deleted successfully",
     });
   } catch (error) {
-<span class="cstat-no" title="statement not covered" >    res.status(404).send({ status: "fail", message: "user not found" });</span>
+    res.status(404).send({ status: "fail", message: "user not found" });
   }
 };
 &nbsp;
@@ -446,17 +446,17 @@ export const deleteUser = <span class="fstat-no" title="function not covered" >a
 &nbsp;
 /*======================================COUNT ALL USERs============================================== */
 &nbsp;
-export const countUser = <span class="fstat-no" title="function not covered" >async (r</span>eq, res) =&gt; {
-<span class="cstat-no" title="statement not covered" >  try {</span>
+export const countUser = async (req, res) =&gt; {
+  try {
     // Count the number of blogs in the collection
-    const userCount = <span class="cstat-no" title="statement not covered" >await User.countDocuments();</span>
+    const userCount = await User.countDocuments();
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    res.status(200).send({</span>
+    res.status(200).send({
       status: "success",
       message: `There are ${userCount} users in the collection.`,
     });
   } catch (err) {
-<span class="cstat-no" title="statement not covered" >    res.status(500).send({ status: "fail", message: "Error counting users" });</span>
+    res.status(500).send({ status: "fail", message: "Error counting users" });
   }
 };
 &nbsp;
@@ -469,7 +469,7 @@ export const countUser = <span class="fstat-no" title="function not covered" >as
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-01-30T02:22:09.092Z
+                at 2023-01-30T19:37:56.982Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

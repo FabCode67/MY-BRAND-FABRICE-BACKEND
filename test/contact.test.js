@@ -91,8 +91,8 @@
 import chaiHttp from 'chai-http';
 import chai from 'chai';
 import contact from '../src/models/contact';
-import app from '../src/index';
-
+import app from '../test/index.test';
+import jwt from 'jsonwebtoken'
 chai.should();
 chai.use(chaiHttp);
 
@@ -131,16 +131,66 @@ describe('send a message', () => {
   });
 });
 
+
+
 describe('GET all messages', () => {
+  let token;
+
+  before(async () => {
+    const response = await chai
+      .request(app)
+      .post('/api/login')
+      .send({
+        username: 'test',
+        password: 'password'
+      });
+    token = response.body.data;
+  });
+
   it('it should GET all the messages', (done) => {
     chai
       .request(app)
       .get('/api/contact')
+      .set('Authorization', token)
       .end((err, res) => {
         res.should.have.status(200);
-        res.body.should.have.property("status")
-        res.body.should.have.property("data")
+        res.body.should.have.property('status');
+        res.body.should.have.property('data');
         done();
       });
   });
 });
+ 
+
+
+describe('Count all users by authorized user', () => {
+
+  let token;
+
+  before(async () => {
+    const response = await chai
+      .request(app)
+      .post('/api/login')
+      .send({
+        username: 'test',
+        password: 'password'
+      });
+    token = response.body.data;
+  });
+
+  it('it should count all the contact', (done) => {
+
+    chai
+      .request(app)
+      .get('/api/contact/count')
+      .set('Authorization', token)
+      .end((err, res) => {
+        res.should.have.status(200);
+        res.body.should.have.property('status');
+        res.body.should.have.property('message');
+        done();
+      });
+  });
+});
+
+ 

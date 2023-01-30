@@ -10,7 +10,7 @@ import {
 }  from "../controllers/contact";
 
 router.post("/contact", postMsg);
-router.get("/contact", getMsg);
+router.get("/contact", authenticat, getMsg);
 router.delete("/contact/:id", authenticat, deleteContact);
 router.get("/contact/count", authenticat, countContact);
 

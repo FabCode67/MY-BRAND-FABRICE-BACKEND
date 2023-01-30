@@ -46,7 +46,8 @@ describe('POST a user', () => {
 
 
 
-describe('Login', () => {
+  describe('Login', () => {
+    let token;
     it('it should log in a user', (done) => {
       chai
         .request(app)
@@ -60,9 +61,14 @@ describe('Login', () => {
           res.body.should.have.property("status");
           res.body.should.have.property("message");
           res.body.should.have.property("data");
+          token = res.body.data;
           done();
         });
     });
+  
+    
+  });
+  
     
     it('it should return 404 for invalid username', (done) => {
       chai
@@ -113,7 +119,6 @@ describe('Login', () => {
           done();
         });
     });
-  });
   
 
 
@@ -132,20 +137,33 @@ describe('Login', () => {
         });
     });
   
-    // it("should return the user profile if the token is valid", (done) => {
-    //     // create a token and send a GET request to the /api/profile endpoint
-    //     const token = jwt.sign({ userId: User._id }, secretKey);
-    //     request(app)
-    //       .get("/api/profile")
-    //       .set("Authorization", `Bearer ${token}`)
-    //       .expect(200)
-    //       .then((res) => {
-    //         // check that the response is as expected
-    //         expect(res.body.status).toBe("success");
-    //         expect(res.body.data._id).toBe(User._id.toString());
-    //         done();
-    //       });
-    //   });
+    it('it should return the user profile if the token is valid', (done) => {
+      const user = {
+        _id: new mongoose.Types.ObjectId().toHexString(),
+        email: 'test@example.com',
+        password: 'test123'
+      };
+      
+      // Save the user to the database
+      User.create(user)
+        .then(savedUser => {
+          const token = jwt.sign({ userId: savedUser._id }, secretKey, { expiresIn: '1h' });
+          
+          chai
+            .request(app)
+            .get('/api/profile')
+            .set('authorization', token)
+            .end((err, res) => {
+              res.should.have.status(200);
+              res.body.should.have.property('status');
+              res.body.should.have.property('data');
+              res.body.data.should.have.property('_id');
+              res.body.data.should.have.property('email');
+              done();
+            });
+        });
+    });
+    
       
     it('it should return 401 if the token is invalid', (done) => {
       const token = 'invalidtoken';
@@ -164,19 +182,114 @@ describe('Login', () => {
   });
   
 
-// describe('GET all users', () => {
-//     it('it should GET all users', (done) => {
-//       chai
-//         .request(app)
-//         .get('/api/user')
-//         .end((err, res) => {
-//           res.should.have.status(200);
-//           res.body.should.have.property("status");
-//           res.body.should.have.property("data");
-//           done();
-//         });
-//     });
-//   });
+
+
+
+  
+describe('GET all users', () => {
+  let token;
+
+  before(async () => {
+    const response = await chai
+      .request(app)
+      .post('/api/login')
+      .send({
+        username: 'test',
+        password: 'password'
+      });
+    token = response.body.data;
+  });
+
+  it('it should GET all users', (done) => {
+    chai
+      .request(app)
+      .get('/api/user')
+      .set('Authorization', token)
+      .end((err, res) => {
+        res.should.have.status(200);
+        res.body.should.have.property('status');
+        res.body.should.have.property('data');
+        done();
+      });
+  });
+});
+
+
+describe("deleteUser", () => {
+  let token;
+
+  before(async () => {
+    const response = await chai
+      .request(app)
+      .post('/api/login')
+      .send({
+        username: 'test',
+        password: 'password'
+      });
+    token = response.body.data;
+  });
+
+  it("should delete a user by id for an authorized user", (done) => {
+    chai
+      .request(app)
+      .delete(`/api/user/${User._id}`)
+      .set("Authorization", token)
+      .end((err, res) => {
+        res.should.have.status(404);
+        res.body.should.have.property("status");
+        res.body.should.have.property("message");
+        res.body.status.should.equal("fail");
+        done();
+      });
+  });
+});
+
+
+describe("Count Users", () => {
+ let token;
+  before(async () => {
+    const response = await chai
+      .request(app)
+      .post('/api/login')
+      .send({
+        username: 'test',
+        password: 'password'
+      });
+    token = response.body.data;
+  });
+  it("should return the number of users in the collection for an authorized user", (done) => {
+    chai
+      .request(app)
+      .get("/api/user/count")
+      .set("Authorization", token)
+      .end((err, res) => {
+        res.should.have.status(200);
+        res.body.should.have.property("status");
+        res.body.should.have.property("message");
+        done();
+      });
+  });
+
+  it("should return an error if counting users fails", (done) => {
+    const originalCountDocuments = User.countDocuments;
+    User.countDocuments = () => {
+      throw new Error("Error counting users");
+    };
+
+    chai
+      .request(app)
+      .get("/api/user/count")
+      .set("Authorization", token)
+      .end((err, res) => {
+        User.countDocuments = originalCountDocuments;
+        res.should.have.status(500);
+        res.body.should.have.property("status");
+        res.body.should.have.property("message");
+        res.body.message.should.be.equal("Error counting users");
+        done();
+      });
+  });
+});
   
   
           

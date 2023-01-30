@@ -1,4 +1,4 @@
-# MY-BRAND-FABRICE-BACKEND ![check-code-coverage](https://img.shields.io/badge/code--coverage-65.55%25-yellow)
+# MY-BRAND-FABRICE-BACKEND ![check-code-coverage](https://img.shields.io/badge/code--coverage-70.3%25-yellow)
 # Description
 -This is the backend for the cpaston project title, 
 -a web application that allows users to reach on me.
