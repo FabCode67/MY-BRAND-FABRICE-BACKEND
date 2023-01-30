@@ -5,12 +5,12 @@ import chai from 'chai';
 import mongoose from 'mongoose';
 import  jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt'
-import User from '../models/user';
+import User from '../src/models/user';
 import dotenv from "dotenv";
 
 dotenv.config();
 const secretKey = process.env.SECRETKEY;
-import app from '../index'
+import app from '../src/index'
 
 chai.should();
 chai.use(chaiHttp);

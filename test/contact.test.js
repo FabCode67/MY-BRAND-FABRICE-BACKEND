@@ -90,8 +90,8 @@
 
 import chaiHttp from 'chai-http';
 import chai from 'chai';
-import contact from '../models/contact';
-import app from '../index';
+import contact from '../src/models/contact';
+import app from '../src/index';
 
 chai.should();
 chai.use(chaiHttp);
