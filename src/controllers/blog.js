@@ -16,7 +16,7 @@ export const createBlog = async (req, res) => {
   });
 
   if (existingBlog) {
-    return res.status(400).json({
+    return res.status(409).json({
       status: "fail",
       message: "Blog title and content already exist",
     });
