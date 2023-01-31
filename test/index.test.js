@@ -11,7 +11,7 @@ dotenv.config();
 mongoose.set("strictQuery", true);
 const app = express();
 
-const { PORT_TEST } = process.env;
+const PORT_TEST = process.env;
 app.use(express.json());
 
 app.use("/api", contactRoutes);
@@ -27,14 +27,8 @@ mongoose
   )
   .then(() => {
    
-
-    /* ------------------------ by default*--------------------*/
-    app.use((req, res) => {
-      res.status(404).send({ status: "fail", message: "Endpoint not found" });
-    });
-    /* ------------------------ by default*--------------------*/
-    app.listen(PORT_TEST, () => {
-      console.log(`server started PORT_TEST ${PORT_TEST}...`);
+    app.listen(process.env.PORT_TEST, () => {
+      console.log(`server started on port ${process.env.PORT_TEST}...`);
     });
   });
 export default app;
