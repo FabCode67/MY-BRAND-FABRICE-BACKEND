@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">24.78% </span>
+                <span class="strong">29.91% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>29/117</span>
+                <span class='fraction'>35/117</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">6.25% </span>
+                <span class="strong">9.37% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>2/32</span>
+                <span class='fraction'>3/32</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">11.76% </span>
+                <span class="strong">23.52% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>2/17</span>
+                <span class='fraction'>4/17</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">24.34% </span>
+                <span class="strong">29.56% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>28/115</span>
+                <span class='fraction'>34/115</span>
             </div>
         
             
@@ -387,22 +387,12 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -410,10 +400,20 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -697,35 +697,35 @@ dotenv.config();
 const secretKey = process.env.SECRETKEY;
 /*= ====================================================CREATE BLOG========================================= */
 &nbsp;
-export const createBlog = <span class="fstat-no" title="function not covered" >async (r</span>eq, res) =&gt; {
+export const createBlog = async (req, res) =&gt; {
   // Check if blog title and content already exist
-  const existingBlog = <span class="cstat-no" title="statement not covered" >await Blog.findOne({</span>
+  const existingBlog = await Blog.findOne({
     blogTitle: req.body.blogTitle,
     blogContent: req.body.blogContent,
   });
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  if (existingBlog) {</span>
-<span class="cstat-no" title="statement not covered" >    return res.status(400).json({</span>
+  <span class="missing-if-branch" title="if path not taken" >I</span>if (existingBlog) {
+<span class="cstat-no" title="statement not covered" >    return res.status(409).json({</span>
       status: "fail",
       message: "Blog title and content already exist",
     });
   }
 &nbsp;
   // Upload image
-  const result = <span class="cstat-no" title="statement not covered" >await cloudinary.uploader.upload(req.file.path);</span>
+  const result = await cloudinary.uploader.upload(req.file.path);
 &nbsp;
   // Create new blog
-  const blog = <span class="cstat-no" title="statement not covered" >new Blog({</span>
+  const blog = new Blog({
     blogTitle: req.body.blogTitle,
     blogContent: req.body.blogContent,
     blogImage: result.secure_url,
   });
 &nbsp;
   // Save blog to database
-<span class="cstat-no" title="statement not covered" >  blog</span>
+  blog
     .save()
-    .then((<span class="fstat-no" title="function not covered" >result)</span> =&gt; {
-<span class="cstat-no" title="statement not covered" >      res.status(201).json({</span>
+    .then((result) =&gt; {
+      res.status(201).json({
         status: "success",
         message: "Blog created successfully",
         data: {
@@ -1006,7 +1006,7 @@ export const countComments = <span class="fstat-no" title="function not covered"
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-01-31T03:32:03.204Z
+                at 2023-01-31T13:46:22.558Z
             </div>
         <script src="../../prettify.js"></script>
         <script>
