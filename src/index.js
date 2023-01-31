@@ -13,22 +13,23 @@ dotenv.config();
 mongoose.set("strictQuery", true);
 const app = express();
 
+const { PORT } = process.env;
+app.use(express.json());
+
+app.use("/api", contactRoutes);
+app.use("/api", userRoutes);
+app.use("/api", loginRoutes);
+app.use("/api", blogRoutes);
+app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(docs));
+
+
 mongoose
   .connect(
     `mongodb+srv://${process.env.ADMIN_NAME}:${process.env.ADMIN_PASSWORD}@my-brand-fabrice.7myztk9.mongodb.net/?retryWrites=true&w=majority`,
     { useNewUrlParser: true },
   )
   .then(() => {
-    const { PORT } = process.env;
-    app.use(express.json());
-
-    app.use("/api", contactRoutes);
-    app.use("/api", userRoutes);
-    app.use("/api", loginRoutes);
-    app.use("/api", blogRoutes);
-    // app.use("/api-doc", swaggerUI.serve, swaggerUI.setup(docs));
-    app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(docs));
-
+   
 
     /* ------------------------ by default*--------------------*/
     app.use((req, res) => {

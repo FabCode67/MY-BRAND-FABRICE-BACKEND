@@ -5,7 +5,7 @@ import contact from "../models/contact";
 export const getMsg = async (req, res) => {
   try {
     const query = await contact.find();
-    res.status(200).send({ status: "success", data: query });
+    res.status(200).json({ status: "success", data: query });
   } catch (err) {
     res.status(404);
     res.send({ error: "Postman not found" });
@@ -28,10 +28,10 @@ export const postMsg = async (req, res) => {
     } else {
       res
         .status(404)
-        .send({ status: "fail", dada: "Failed to create contact" });
+        .send({ status: "fail", message: "Failed to create contact" });
     }
   } catch (err) {
-    res.status(404).send({ status: "fail", dada: "Postman not found" });
+    res.status(404).send({ status: "fail", message: "Postman not found" });
   }
 };
 

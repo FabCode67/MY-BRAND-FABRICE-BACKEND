@@ -5,7 +5,9 @@ export default {
     description: "Get all users", 
     operationId: "getUsers", 
     parameters: [], 
-   
+    security: [{
+      BearerAuth: []
+  }],
     responses: {
       200: {
         description: "OK",

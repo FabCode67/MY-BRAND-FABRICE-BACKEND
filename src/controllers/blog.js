@@ -152,9 +152,9 @@ export const updateBlog = async (req, res) => {
     });
 };
 
-/*= ====================================================UPDATE SINGLE BLOG========================================= */
+/*==========================================UPDATE SINGLE BLOG========================================= */
 
-/*= ====================================================DELETE SINGLE BLOG========================================= */
+/*==========================================DELETE SINGLE BLOG========================================= */
 
 export const deleteBlog = async (req, res) => {
   try {
@@ -165,7 +165,7 @@ export const deleteBlog = async (req, res) => {
     }
     await Blog.deleteOne({ _id: req.params.id });
     res
-      .status(200)
+      .status(204)
       .json({ status: "success", message: "blog deleted successfully" });
   } catch (err) {
     res.status(404).send({ status: "fail", message: "Blog not found" });
@@ -260,7 +260,7 @@ export const deleteComment = async (req, res) => {
       $pull: { comments: { _id: req.params.commentId } },
     });
     res
-      .status(200)
+      .status(201)
       .send({ status: "success", message: "Comment deleted successfully" });
   } catch (err) {
     res.status(500).send({ status: "fail", message: "Error deleting comment" });
