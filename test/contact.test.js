@@ -1,98 +1,9 @@
-// const chai = require("chai");
-// const chaiHttp = require("chai-http");
-// const { response } = require("express");
-// const { array } = require("joi");
-// import app  from "../index";
 
-// chai.should();
-// chai.use(chaiHttp);
-// describe("Contact API", () => {
-//   describe("GET /api/contact", () => {
-//     it("should get all contacts", (done) => {
-//       chai
-//         .request(app)
-//         .get("/api/contact")
-//         .end((err, response) => {
-//           response.status.should.be.equal(404);
-//           response.body.should.be.a("object");
-//           done();
-//         });
-//     });
-//   });
-
-//   describe("POST /api/contact", () => {
-//     it("should create a new contact", (done) => {
-//       const contact = {
-//         name: "rich",
-//         email: "rich@gmail.com",
-//         message: "test",
-//       };
-//       chai;
-//       chai
-//         .request(app)
-//         .post("/api/contact")
-//         .send(contact)
-//         .end((err, response) => {
-//           response.status.should.be.equal(404);
-//           response.body.should.be.a("object");
-//           done();
-//         });
-//     });
-//   });
-// });
-
-// import app from '../index'
-// import chai from 'chai'
-// import chaiHttp from 'chai-http'
-// import contact from '../models/contact';
-// import { response } from 'express';
-
-// chai.should();
-// chai.use(chaiHttp)
-
-// describe("contact" ,()=>{
-
-
-
-
-//   describe("GET /api/contact",()=>{
-//     it("should get a contact",(done)=>{
-
-
-//       beforeEach(async (done)=>{
-
-//         const post =  new contact({
-//           name: "rich",
-//           email: "rich@gmail.com",
-//           message: "test this",
-//         });
-//         await post.save();
-
-//       })
-
-
-//       chai.request(app)
-//       .get("/api/contact")
-//       .end((err,response)=>{
-//          response.should.have.status(200);
-//          response.body.should.be.a("object");
-//         //  response.body.length.should.be.above(1);
-//          done()
-//       })
-//     })
-//   })
-
-
-
-
-
-// })
 
 import chaiHttp from 'chai-http';
 import chai from 'chai';
 import contact from '../src/models/contact';
 import app from '../test/index.test';
-import jwt from 'jsonwebtoken'
 chai.should();
 chai.use(chaiHttp);
 

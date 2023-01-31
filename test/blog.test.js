@@ -2,7 +2,7 @@
 import chaiHttp from 'chai-http';
 import chai from 'chai';
 import Blog from '../src/models/blog';
-import app from '../src/index';
+import app from '../test/index.test';
 import fs from 'fs';
 import path from 'path';
 
