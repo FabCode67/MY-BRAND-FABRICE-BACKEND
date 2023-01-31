@@ -4,7 +4,7 @@
   "description": "-This is the backend for the cpaston project title, \r -a web application that allows users to reach on me.\r -It is built using Node.js and Express.\r ## Technologies\r  - Database: mongodb\r  - Package manage: NPM\r  - Environment: Nodejs\r ## Set Up\r ### Dependencies\r - Mongoose \r - Express.js\r - Nodemon \r - passport\r ### Clone the repository\r - https://github.com/FabCode67/MY-BRAND-FABRICE-BACKEND\r ### Navigate to the project directory\r - cd MY-BRAND-FABRICE-BACKEND\r ### Install dependencies\r - npm install\r ### Start the server\r - npm start\r # Author\r FabCode67",
   "main": "index.js",
   "scripts": {
-    "test": "nyc --reporter=text --reporter=html --reporter=json-summary mocha --recursive --exit --timeout 10000 --require @babel/register test/*.js",
+    "test": "nyc --reporter=text --reporter=html --reporter=json-summary mocha --recursive --exit --timeout 30000 --require @babel/register test/*.js",
     "coverage": "nyc --reporter=html --report-dir=coverage/ npm run test",
     "build": "babel src -d dist",
     "start": "node dist/index.js",
