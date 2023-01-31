@@ -10,10 +10,17 @@ on:
     branches: [ "main" ]
     
 env:
+  PORT: ${{secrets.PORT}}
+  PORT_TEST: ${{secrets.PORT_TEST}}
+  CLOUDINARY_CLOUD_NAME: ${{secrets.CLOUDINARY_CLOUD_NAME}}
+  CLOUDINARY_API_KEY: ${{secrets.CLOUDINARY_API_KEY}}
+  CLOUDINARY_API_SECRET: ${{secrets.CLOUDINARY_API_SECRET}}
+  ADMIN_NAME: ${{secrets.ADMIN_NAME}}
+  ADMIN_PASSWORD: ${{secrets.ADMIN_PASSWORD}}
   ADMIN_NAME_TEST: ${{secrets.ADMIN_NAME_TEST}}
   ADMIN_PASSWORD_TEST: ${{secrets.ADMIN_PASSWORD_TEST}}
-  PORT_TEST: ${{secrets.PORT_TEST}}
   SECRETKEY: ${{secrets.SECRETKEY}}
+  
 jobs:
   build:
 
