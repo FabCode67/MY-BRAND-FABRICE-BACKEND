@@ -40,4 +40,3 @@ mongoose
       console.log(`server started port ${PORT}...`);
     });
   });
-export default app;
