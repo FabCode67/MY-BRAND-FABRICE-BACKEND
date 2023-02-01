@@ -4,7 +4,6 @@ import User from "../models/user";
 /*======================================REGISTER USER============================================== */
 
 export const registerUser = async (req, res) => {
-  try {
     const saltRounds = 10;
     const hashedPassword = await bcrypt.hash(req.body.password, saltRounds);
     const hashedComfirmPassword = await bcrypt.hash(
@@ -19,7 +18,7 @@ export const registerUser = async (req, res) => {
 
     if (existingUser) {
       res
-        .status(400)
+        .status(409)
         .send({ status: "fail", message: "Email or username already exists" });
       return;
     }
@@ -70,30 +69,22 @@ export const registerUser = async (req, res) => {
     });
     await post.save();
     res.status(200).send({ status: "success", data: post });
-  } catch {
-    res.status(404);
-    res.send({ status: "fail", message: "Postman not found" });
-  }
+  
 };
 /*======================================REGISTER USER============================================== */
 
 /*======================================GET ALL USER============================================== */
 
 export const getUser = async (req, res) => {
-  try {
     const query = await User.find();
     res.status(200).send({ status: "success", data: query });
-  } catch {
-    res.status(404);
-    res.send({ status: "fail", message: "Postman not found" });
-  }
 };
 /*======================================GET ALL USER============================================== */
 
 /*======================================DELETE SINGLE USER============================================== */
 
 export const deleteUser = async (req, res) => {
-  try {
+  
     // check if user exists
     const userToDelete = await User.findOne({ _id: req.params.id });
     if (!userToDelete) {
@@ -102,13 +93,11 @@ export const deleteUser = async (req, res) => {
     }
 
     await User.deleteOne({ _id: req.params.id });
-    res.status(200).json({
+    res.status(204).json({
       status: "success",
       message: "User deleted successfully",
     });
-  } catch (error) {
-    res.status(404).send({ status: "fail", message: "user not found" });
-  }
+  
 };
 
 /*======================================DELETE SINGLE USER============================================== */

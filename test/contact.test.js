@@ -2,7 +2,7 @@
 
 import chaiHttp from 'chai-http';
 import chai from 'chai';
-import contact from '../src/models/contact';
+import Contact from '../src/models/contact';
 import app from '../test/index.test';
 chai.should();
 chai.use(chaiHttp);
@@ -70,6 +70,7 @@ describe('GET all messages', () => {
         done();
       });
   });
+
 });
  
 
@@ -105,3 +106,49 @@ describe('Count all users by authorized user', () => {
 });
 
  
+describe("Delete single contact", () => {
+  let contact
+  let token;
+  before(async () => {
+    const response = await chai
+      .request(app)
+      .post("/api/login")
+      .send({
+        username: "test",
+        password: "password",
+      });
+    token = response.body.data;
+  });
+
+  it("it should delete a contact by the given id", (done) => {
+     contact = new Contact({  name: 'rich1',
+                             email: 'rich1@gmail.com',
+                             message: 'test1',
+   });
+    contact.save((error, contact) => {
+      chai
+        .request(app)
+        .delete(`/api/contact/${contact._id}`)
+        .set("Authorization", token)
+        .end((err, res) => {
+          res.should.have.status(204);
+          res.body.should.be.empty;
+          done();
+        });
+    });
+  });
+
+  it("it should return 404 if message not found", (done) => {
+    chai
+      .request(app)
+      .delete(`/api/contact/${contact._id}`)
+      .set("Authorization", token)
+      .end((err, res) => {
+        res.should.have.status(404);
+        res.body.should.be.a("object");
+        res.body.should.have.property("status").eql("fail");
+        res.body.should.have.property("message").eql("message not found");
+        done();
+      });
+  });
+});

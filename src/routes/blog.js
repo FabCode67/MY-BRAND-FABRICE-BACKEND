@@ -35,9 +35,7 @@ import {
   updateBlog,
   deleteBlog,
   addComment,
-  deleteComment,
-  countComments,
-  countBlogs,
+  countComments
 }  from "../controllers/blog";
 /*= ====================================================UPLOAD FOLDER WITH MULTER============================================== */
 
@@ -48,15 +46,9 @@ router.get("/blog", getAllBlogs);
 router.get("/blog/:id", authenticat, getSingleBlog);
 router.patch("/blog/:id", upload.single("blogImage"), authenticat, updateBlog);
 router.delete("/blog/:id", authenticat, deleteBlog);
-router.delete(
-  "/blogs/:id/comments/:id",
-  authenticat,
-  deleteComment,
-  updateBlog,
-);
 router.post("/blog/:id/comment", authenticat, addComment, updateBlog);
 router.get("/blog/:id/comment/count", countComments);
-router.get("/blog/count", countBlogs);
+// router.get("/blog/count", countBlogs);
 /*= ====================================================ALL ENDPOINTS============================================== */
 
 export default router;

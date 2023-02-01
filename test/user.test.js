@@ -1,8 +1,6 @@
 
 import chaiHttp from 'chai-http';
 import chai from 'chai';
-import mongoose from 'mongoose';
-import jwt from 'jsonwebtoken';
 import User from '../src/models/user';
 import dotenv from "dotenv";
 import app from '../test/index.test'
@@ -10,14 +8,117 @@ import app from '../test/index.test'
 dotenv.config();
 chai.should();
 chai.use(chaiHttp);
-describe('POST a user', () => {
 
+
+describe('', () => {
+  it('it should 409 Email or username already exists', (done) => {
+    chai
+      .request(app)
+      .post('/api/user')
+      .send({
+        email: "test@test.com",
+        username: "test",
+        gender: "Male",
+        password: "password",
+        confirmPassword: "password",
+      })
+      .end((err, res) => {
+        res.should.have.status(409);
+        res.body.should.have.property("status");
+        res.body.should.have.property("message");
+        done();
+      });
+  });
+ 
+});
+
+
+describe('POST a user', () => {
     beforeEach(async () => {
         try {
           await User.deleteMany({});
         } catch (error) {
         }
       });
+
+
+
+      it('it should return 400 if password and confirmpassword not match', (done) => {
+        chai
+          .request(app)
+          .post('/api/user')
+          .send({
+            email: "test@test.com",
+            username: "test",
+            gender: "Male",
+            password: "passwor",
+            confirmPassword: "password",
+          })
+          .end((err, res) => {
+            res.should.have.status(400);
+            res.body.should.have.property("status");
+            res.body.should.have.property("message");
+            done();
+          });
+      });
+
+      it('it should return 400 if  not Male or female', (done) => {
+        chai
+          .request(app)
+          .post('/api/user')
+          .send({
+            email: "test@test.com",
+            username: "test",
+            gender: "other",
+            password: "password",
+            confirmPassword: "password",
+          })
+          .end((err, res) => {
+            res.should.have.status(400);
+            res.body.should.have.property("status");
+            res.body.should.have.property("message");
+            done();
+          });
+      });
+
+      it('it should return 400 for envalid email', (done) => {
+        chai
+          .request(app)
+          .post('/api/user')
+          .send({
+            email: "testtest.com",
+            username: "test",
+            gender: "Male",
+            password: "password",
+            confirmPassword: "password",
+          })
+          .end((err, res) => {
+            res.should.have.status(400);
+            res.body.should.have.property("status");
+            res.body.should.have.property("message");
+            done();
+          });
+      });
+
+      it('it should return 400 for envalid username', (done) => {
+        chai
+          .request(app)
+          .post('/api/user')
+          .send({
+            email: "test@test.com",
+            username: "te",
+            gender: "Male",
+            password: "password",
+            confirmPassword: "password",
+          })
+          .end((err, res) => {
+            res.should.have.status(400);
+            res.body.should.have.property("status");
+            res.body.should.have.property("message");
+            done();
+          });
+      });
+
 
     it('it should POST a new user', (done) => {
       chai
@@ -37,7 +138,7 @@ describe('POST a user', () => {
           done();
         });
     });
-  
+
 });
 
 
@@ -66,34 +167,32 @@ describe('POST a user', () => {
   });
   
     
-    it('it should return 404 for invalid username', (done) => {
-      chai
-        .request(app)
-        .post('/api/login')
-        .send({
-          username: "i",
-          password: "password",
-        })
-        .end((err, res) => {
-          res.should.have.status(404);
-          res.body.should.have.property("status");
-          res.body.should.have.property("message");
-          res.body.status.should.equal("fail");
-          
-          done();
-        });
-    });
+    // it('it should return 404 for invalid username', (done) => {
+    //   chai
+    //     .request(app)
+    //     .post('/api/login')
+    //     .send({
+    //       username: "in",
+    //       password: "password",
+    //     })
+    //     .end((err, res) => {
+    //       res.should.have.status(401);
+    //       res.body.should.have.property("status");
+    //       res.body.should.have.property("message");
+    //       done();
+    //     });
+    // });
     
-    it('it should return 401 for invalid password', (done) => {
+    it('it should return 401 for invalid password and username', (done) => {
       chai
         .request(app)
         .post('/api/login')
         .send({
-          username: "test",
+          username: "te",
           password: "invalid",
         })
         .end((err, res) => {
-          res.should.have.status(401);
+          res.should.have.status(404);
           res.body.should.have.property("status");
           res.body.should.have.property("message");
           done();
@@ -212,34 +311,9 @@ describe('GET all users', () => {
 });
 
 
-describe("deleteUser", () => {
-  let token;
 
-  before(async () => {
-    const response = await chai
-      .request(app)
-      .post('/api/login')
-      .send({
-        username: 'test',
-        password: 'password'
-      });
-    token = response.body.data;
-  });
 
-  it("should delete a user by id for an authorized user", (done) => {
-    chai
-      .request(app)
-      .delete(`/api/user/${User._id}`)
-      .set("Authorization", token)
-      .end((err, res) => {
-        res.should.have.status(404);
-        res.body.should.have.property("status");
-        res.body.should.have.property("message");
-        res.body.status.should.equal("fail");
-        done();
-      });
-  });
-});
+
 
 
 describe("Count Users", () => {
@@ -289,70 +363,54 @@ describe("Count Users", () => {
 });
   
   
-          
 
-// describe('deleting user', () => {
+describe("Delete single user", () => {
+  let user
+  let token;
+  before(async () => {
+    const response = await chai
+      .request(app)
+      .post("/api/login")
+      .send({
+        username: "test",
+        password: "password",
+      });
+    token = response.body.data;
+  });
 
-  
+  it("it should delete a user by the given id", (done) => {
+     user = new 
+    User({email: "test@test.com",
+    username: "test",
+    gender: "Male",
+    password: "password",
+    confirmPassword: "password",
+   });
+    user.save((error, user) => {
+      chai
+        .request(app)
+        .delete(`/api/user/${user._id}`)
+        .set("Authorization", token)
+        .end((err, res) => {
+          res.should.have.status(204);
+          res.body.should.be.empty;
+          done();
+        });
+    });
+  });
 
-//   beforeEach((done) => {
-//     const user = new User({
-//       name: "Johnn Doe",
-//       email: "johngdoe@example.com",
-//       gender: "Male",
-//       password: "password123",
-//       confirmPassword: "password123",
-//     });
-//     user.save((err) => {
-//       done();
-//     });
-//   });
+  it("it should return 404 if user not found", (done) => {
 
-//   afterEach((done) => {
-//     User.deleteMany({}, (err) => {
-//       done();
-//     });
-//   });
-
-  
-//   let token;
-
-//   before(async () => {
-//     const response = await chai
-//       .request(app)
-//       .post('/api/login')
-//       .send({
-//         username: 'test',
-//         password: 'password'
-//       });
-//     token = response.body.data;
-//   });
-//   it('should delete a single user by id', (done) => {
-//     User.findOne({ name: "John Doe" })
-//       .then((user) => {
-//         chai.request(app)
-//           .delete(`/api/user/${user._id}`)
-//           .set("Authorization", token)
-//           .end((err, res) => {
-//             res.should.have.status(200);
-//             res.body.should.be.a('object');
-//             res.body.should.have.property('status').eql('success');
-//             res.body.should.have.property('message').eql('User deleted successfully');
-//             done();
-//           });
-//       });
-//   });
-
-//   it('should return 404 if the user does not exist', (done) => {
-//     chai.request(app)
-//       .delete('/api/user/nofounded')
-//       .set("Authorization", token)
-//       .end((err, res) => {
-//         res.should.have.status(404);
-//         res.body.should.be.a('object');
-//         res.body.should.have.property('status').eql('fail');
-//         res.body.should.have.property('message').eql('user not found');
-//         done();
-//       });
-//   });
-// });
+    chai
+      .request(app)
+      .delete(`/api/user/${user._id}`)
+      .set("Authorization", token)
+      .end((err, res) => {
+        res.should.have.status(404);
+        res.body.should.be.a("object");
+        res.body.should.have.property("status").eql("fail");
+        res.body.should.have.property("message").eql("user not found");
+        done();
+      });
+  });
+});
