@@ -13,12 +13,12 @@ export default {
   components: {
     securitySchemes: {
       BearerAuth: {
-        type: 'apiKey',
-        scheme: 'bearer',
-        bearerFormat: 'JWT',
-        name:"Authorization",
-        in:"header"
+        type: "apiKey",
+        scheme: "bearer",
+        bearerFormat: "JWT",
+        name: "Authorization",
+        in: "header",
       },
     },
-}
-}
+  },
+};

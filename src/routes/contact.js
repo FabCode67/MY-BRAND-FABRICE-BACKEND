@@ -1,13 +1,14 @@
 import express from "express";
-const router = express.Router();
-import { authenticat }  from "../controllers/login";
+import { authenticat } from "../controllers/login";
 
 import {
   postMsg,
   getMsg,
   deleteContact,
   countContact,
-}  from "../controllers/contact";
+} from "../controllers/contact";
+
+const router = express.Router();
 
 router.post("/contact", postMsg);
 router.get("/contact", authenticat, getMsg);

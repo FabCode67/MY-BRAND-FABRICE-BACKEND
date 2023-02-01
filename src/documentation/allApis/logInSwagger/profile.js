@@ -3,9 +3,11 @@ export default {
     tags: ["Authentication"],
     description: "Get the profile of the logged-in user",
     operationId: "getProfile",
-   security: [{
-      BearerAuth: []
-  }],
+    security: [
+      {
+        BearerAuth: [],
+      },
+    ],
     responses: {
       200: {
         description: "Profile retrieved successfully",
@@ -37,6 +39,3 @@ export default {
     },
   },
 };
-
-
-

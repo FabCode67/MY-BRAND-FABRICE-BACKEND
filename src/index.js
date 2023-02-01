@@ -1,13 +1,13 @@
 import express from "express";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
+import swaggerUI from "swagger-ui-express";
 import contactRoutes from "./routes/contact";
 import userRoutes from "./routes/user";
 import loginRoutes from "./routes/login";
 import blogRoutes from "./routes/blog";
 
 import docs from "./documentation";
-import swaggerUI from "swagger-ui-express";
 
 dotenv.config();
 mongoose.set("strictQuery", true);
@@ -22,15 +22,12 @@ app.use("/api", loginRoutes);
 app.use("/api", blogRoutes);
 app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(docs));
 
-
 mongoose
   .connect(
     `mongodb+srv://${process.env.ADMIN_NAME}:${process.env.ADMIN_PASSWORD}@my-brand-fabrice.7myztk9.mongodb.net/?retryWrites=true&w=majority`,
     { useNewUrlParser: true },
   )
   .then(() => {
-   
-
     /* ------------------------ by default*--------------------*/
     app.use((req, res) => {
       res.status(404).send({ status: "fail", message: "Endpoint not found" });

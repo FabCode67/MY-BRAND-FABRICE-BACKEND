@@ -16,7 +16,9 @@ export const login = async (req, res) => {
     );
 
     if (!(isPasswordValid && user)) {
-      res.status(401).send({ status: "fail", message: "Invalid password or Username" });
+      res
+        .status(401)
+        .send({ status: "fail", message: "Invalid password or Username" });
       return;
     }
 

@@ -24,7 +24,6 @@ import numberOfComment from "./blogSwagger/CommentSwagger/numberOfComment";
 
 export default {
   paths: {
-
     "/api/login": {
       ...login,
     },
@@ -32,8 +31,6 @@ export default {
     "/api/profile": {
       ...profile,
     },
-
-
 
     "/api/user": {
       ...postUser,
@@ -46,7 +43,6 @@ export default {
     "/api/user/{id}": {
       ...deleteUser,
     },
-
 
     "/api/contact/": {
       ...postContact,

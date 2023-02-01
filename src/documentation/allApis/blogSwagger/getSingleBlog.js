@@ -3,9 +3,11 @@ export default {
     tags: ["Blog API"],
     summary: "Get a single blog by ID",
     operationId: "getSingleBlog",
-    security: [{
-      BearerAuth: []
-  }],
+    security: [
+      {
+        BearerAuth: [],
+      },
+    ],
     parameters: [
       {
         in: "path",

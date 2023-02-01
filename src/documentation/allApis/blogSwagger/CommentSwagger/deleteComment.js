@@ -7,7 +7,7 @@
 //       BearerAuth: []
 //   }],
 //     parameters: [
-    
+
 //       {
 //         in: "path",
 //         name: "blogId",
