@@ -3,9 +3,11 @@ export default {
     tags: ["Contact API"],
     description: "Delete a contact by id",
     operationId: "deleteContact",
-    security: [{
-      BearerAuth: []
-  }],
+    security: [
+      {
+        BearerAuth: [],
+      },
+    ],
     parameters: [
       {
         in: "path",

@@ -3,9 +3,11 @@ export default {
     tags: ["Blog API"],
     summary: "Delete a blog post by ID",
     operationId: "deleteBlog",
-    security: [{
-      BearerAuth: []
-  }],
+    security: [
+      {
+        BearerAuth: [],
+      },
+    ],
     parameters: [
       {
         in: "path",

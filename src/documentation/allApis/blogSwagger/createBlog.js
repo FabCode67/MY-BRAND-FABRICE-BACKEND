@@ -3,9 +3,11 @@ export default {
     tags: ["Blog API"],
     description: "Create a new blog post",
     operationId: "createBlog",
-    security: [{
-      BearerAuth: []
-  }],
+    security: [
+      {
+        BearerAuth: [],
+      },
+    ],
 
     requestBody: {
       content: {

@@ -1,6 +1,16 @@
 import express from "express";
 import multer from "multer";
 import path from "path";
+import { authenticat } from "../controllers/login";
+import {
+  createBlog,
+  getAllBlogs,
+  getSingleBlog,
+  updateBlog,
+  deleteBlog,
+  addComment,
+  countComments,
+} from "../controllers/blog";
 
 const router = express.Router();
 
@@ -27,16 +37,6 @@ const storage = multer.diskStorage({
   },
 });
 const upload = multer({ storage });
-import  {authenticat}  from "../controllers/login";
-import {
-  createBlog,
-  getAllBlogs,
-  getSingleBlog,
-  updateBlog,
-  deleteBlog,
-  addComment,
-  countComments
-}  from "../controllers/blog";
 /*= ====================================================UPLOAD FOLDER WITH MULTER============================================== */
 
 /*= ====================================================ALL ENDPOINTS============================================== */

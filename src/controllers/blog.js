@@ -33,20 +33,18 @@ export const createBlog = async (req, res) => {
   });
 
   // Save blog to database
-  blog
-    .save()
-    .then((result) => {
-      res.status(201).json({
-        status: "success",
-        message: "Blog created successfully",
-        data: {
-          _id: result._id,
-          blogTitle: result.blogTitle,
-          blogContent: result.blogContent,
-          blogImage: result.blogImage,
-        },
-      });
-    })
+  blog.save().then((result) => {
+    res.status(201).json({
+      status: "success",
+      message: "Blog created successfully",
+      data: {
+        _id: result._id,
+        blogTitle: result.blogTitle,
+        blogContent: result.blogContent,
+        blogImage: result.blogImage,
+      },
+    });
+  });
 };
 
 /*= ====================================================CREATE BLOG========================================= */
@@ -54,8 +52,8 @@ export const createBlog = async (req, res) => {
 /*= ====================================================GET ALL BLOG========================================= */
 
 export const getAllBlogs = async (req, res) => {
-    const query = await Blog.find();
-    res.send({ status: "success", data: query });
+  const query = await Blog.find();
+  res.send({ status: "success", data: query });
 };
 /*= ====================================================GET ALL BLOG========================================= */
 
@@ -74,9 +72,9 @@ export const getSingleBlog = (req, res) => {
       }
       res.status(200).json({
         status: "success",
-        data:  blog
+        data: blog,
       });
-    })
+    });
 };
 /*= ====================================================GET SINGLE BLOG========================================= */
 
@@ -124,12 +122,12 @@ export const updateBlog = async (req, res) => {
         status: "success",
         message: "Blog updated successfully",
       });
-    })
+    });
 };
 
-/*==========================================UPDATE SINGLE BLOG========================================= */
+/*= =========================================UPDATE SINGLE BLOG========================================= */
 
-/*==========================================DELETE SINGLE BLOG========================================= */
+/*= =========================================DELETE SINGLE BLOG========================================= */
 
 export const deleteBlog = async (req, res) => {
   try {
@@ -151,38 +149,38 @@ export const deleteBlog = async (req, res) => {
 /*= ====================================================ADD COMENT ON SINGLE BLOG========================================= */
 
 export const addComment = async (req, res) => {
-    // Find the specific blog that the user is trying to add a comment to
-    const blog = await Blog.findById(req.params.id);
-    console.log(blog);
-    if (!blog) {
-      return res
-        .status(404)
-        .send({ status: "fail", message: "Blog not to add coment found" });
-    }
-    const token = req.headers.authorization;
-    const decoded = jwt.verify(token, secretKey);
+  // Find the specific blog that the user is trying to add a comment to
+  const blog = await Blog.findById(req.params.id);
+  console.log(blog);
+  if (!blog) {
+    return res
+      .status(404)
+      .send({ status: "fail", message: "Blog not to add coment found" });
+  }
+  const token = req.headers.authorization;
+  const decoded = jwt.verify(token, secretKey);
 
-    // if (!decoded) {
-    //   return res.status(404).send({ status: "fail", message: "user not authorized" });
-    // }
-    const user = await User.findOne({ username: decoded.username });
-    // if (!user) {
-    //   return res
-    //     .status(404)
-    //     .send({ status: "fail", message: "User not found" });
-    // }
-    const comment = {
-      username: user.username,
-      comment: req.body.comment,
-    };
+  // if (!decoded) {
+  //   return res.status(404).send({ status: "fail", message: "user not authorized" });
+  // }
+  const user = await User.findOne({ username: decoded.username });
+  // if (!user) {
+  //   return res
+  //     .status(404)
+  //     .send({ status: "fail", message: "User not found" });
+  // }
+  const comment = {
+    username: user.username,
+    comment: req.body.comment,
+  };
 
-    await Blog.findByIdAndUpdate(req.params.id, {
-      $push: { comments: comment },
-    });
-    res
-      .status(201)
-      .send({ status: "success", message: "Comment added successfully" });
-  
+  await Blog.findByIdAndUpdate(req.params.id, {
+    $push: { comments: comment },
+  });
+  res
+    .status(201)
+    .send({ status: "success", message: "Comment added successfully" });
+
   // catch (err) {
   //   res
   //     .status(500)
@@ -247,29 +245,21 @@ export const addComment = async (req, res) => {
 
 /*= ====================================================COUNT BLOG========================================= */
 
-
-
-
-
-
 /*= ====================================================COUNT BLOG========================================= */
 
 /*= ====================================================COUNT COMMENT BLOG========================================= */
 export const countComments = async (req, res) => {
- 
-    const blog = await Blog.findById(req.params.id);
-    if (!blog) {
-      return res
-        .status(404)
-        .send({ status: "fail", message: "Blog not found" });
-    }
+  const blog = await Blog.findById(req.params.id);
+  if (!blog) {
+    return res.status(404).send({ status: "fail", message: "Blog not found" });
+  }
 
-    const commentCount = blog.comments.length;
+  const commentCount = blog.comments.length;
 
-    res.status(200).send({
-      status: "success",
-      message: `Blog has ${commentCount} comments.`,
-    });
-}
+  res.status(200).send({
+    status: "success",
+    message: `Blog has ${commentCount} comments.`,
+  });
+};
 
 /*= ====================================================COUNT COMMENT BLOG========================================= */

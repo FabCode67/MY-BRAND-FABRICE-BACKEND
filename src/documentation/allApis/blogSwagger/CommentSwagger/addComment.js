@@ -3,9 +3,11 @@ export default {
     tags: ["Comment blog API"],
     summary: "Add a comment to a specific blog",
     operationId: "addComment",
-    security: [{
-      BearerAuth: []
-     }],
+    security: [
+      {
+        BearerAuth: [],
+      },
+    ],
     parameters: [
       {
         in: "path",

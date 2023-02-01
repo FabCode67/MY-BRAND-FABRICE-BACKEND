@@ -1,13 +1,14 @@
 export default {
-
   get: {
     tags: ["User API"],
-    description: "Get all users", 
-    operationId: "getUsers", 
-    parameters: [], 
-    security: [{
-      BearerAuth: []
-  }],
+    description: "Get all users",
+    operationId: "getUsers",
+    parameters: [],
+    security: [
+      {
+        BearerAuth: [],
+      },
+    ],
     responses: {
       200: {
         description: "OK",

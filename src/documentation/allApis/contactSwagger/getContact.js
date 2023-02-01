@@ -3,9 +3,11 @@ export default {
     tags: ["Contact API"],
     description: "Get all messages",
     operationId: "getContact",
-    security: [{
-      BearerAuth: []
-  }],
+    security: [
+      {
+        BearerAuth: [],
+      },
+    ],
     parameters: [],
 
     responses: {

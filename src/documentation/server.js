@@ -5,8 +5,8 @@ export default {
       description: "Local server", // name
     },
     {
-    url: "https://comfortable-eel-pinafore.cyclic.app/", // url
-    description: "Live server", // name
-  },
+      url: "https://comfortable-eel-pinafore.cyclic.app/", // url
+      description: "Live server", // name
+    },
   ],
 };
