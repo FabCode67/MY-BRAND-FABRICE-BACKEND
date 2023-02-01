@@ -5,11 +5,9 @@ import mongoose from 'mongoose';
 import jwt from 'jsonwebtoken';
 import User from '../src/models/user';
 import dotenv from "dotenv";
-
-dotenv.config();
-const secretKey = process.env.SECRETKEY;
 import app from '../test/index.test'
 
+dotenv.config();
 chai.should();
 chai.use(chaiHttp);
 describe('POST a user', () => {
@@ -134,23 +132,24 @@ describe('POST a user', () => {
           done();
         });
     });
+        let token
+    before(async () => {
+      const response = await chai
+        .request(app)
+        .post('/api/login')
+        .send({
+          username: 'test',
+          password: 'password'
+        });
+      token = response.body.data;
+    });
   
     it('it should return the user profile if the token is valid', (done) => {
-      const user = {
-        _id: new mongoose.Types.ObjectId().toHexString(),
-        email: 'test@example.com',
-        password: 'test123'
-      };
       
-      // Save the user to the database
-      User.create(user)
-        .then(savedUser => {
-          const token = jwt.sign({ userId: savedUser._id }, secretKey, { expiresIn: '1h' });
-          
           chai
             .request(app)
             .get('/api/profile')
-            .set('authorization', token)
+            .set('Authorization', token)
             .end((err, res) => {
               res.should.have.status(200);
               res.body.should.have.property('status');
@@ -160,7 +159,7 @@ describe('POST a user', () => {
               done();
             });
         });
-    });
+   
     
       
     it('it should return 401 if the token is invalid', (done) => {
@@ -291,7 +290,69 @@ describe("Count Users", () => {
   
   
           
-          
-          
-          
+
+// describe('deleting user', () => {
+
   
+
+//   beforeEach((done) => {
+//     const user = new User({
+//       name: "Johnn Doe",
+//       email: "johngdoe@example.com",
+//       gender: "Male",
+//       password: "password123",
+//       confirmPassword: "password123",
+//     });
+//     user.save((err) => {
+//       done();
+//     });
+//   });
+
+//   afterEach((done) => {
+//     User.deleteMany({}, (err) => {
+//       done();
+//     });
+//   });
+
+  
+//   let token;
+
+//   before(async () => {
+//     const response = await chai
+//       .request(app)
+//       .post('/api/login')
+//       .send({
+//         username: 'test',
+//         password: 'password'
+//       });
+//     token = response.body.data;
+//   });
+//   it('should delete a single user by id', (done) => {
+//     User.findOne({ name: "John Doe" })
+//       .then((user) => {
+//         chai.request(app)
+//           .delete(`/api/user/${user._id}`)
+//           .set("Authorization", token)
+//           .end((err, res) => {
+//             res.should.have.status(200);
+//             res.body.should.be.a('object');
+//             res.body.should.have.property('status').eql('success');
+//             res.body.should.have.property('message').eql('User deleted successfully');
+//             done();
+//           });
+//       });
+//   });
+
+//   it('should return 404 if the user does not exist', (done) => {
+//     chai.request(app)
+//       .delete('/api/user/nofounded')
+//       .set("Authorization", token)
+//       .end((err, res) => {
+//         res.should.have.status(404);
+//         res.body.should.be.a('object');
+//         res.body.should.have.property('status').eql('fail');
+//         res.body.should.have.property('message').eql('user not found');
+//         done();
+//       });
+//   });
+// });

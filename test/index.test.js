@@ -11,7 +11,6 @@ dotenv.config();
 mongoose.set("strictQuery", true);
 const app = express();
 
-const PORT_TEST = process.env;
 app.use(express.json());
 
 app.use("/api", contactRoutes);
