@@ -166,7 +166,7 @@ export const deleteBlog = async (req, res) => {
     await Blog.deleteOne({ _id: req.params.id });
     res
       .status(204)
-      .json({ status: "success", message: "blog deleted successfully" });
+      .send({ status: "success", message: "blog deleted successfully" });
   } catch (err) {
     res.status(404).send({ status: "fail", message: "Blog not found" });
   }
