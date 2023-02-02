@@ -11,8 +11,8 @@ import {
 const router = express.Router();
 
 router.post("/contact", postMsg);
-router.get("/contact", authenticat, getMsg);
+router.get("/contact",  getMsg);
 router.delete("/contact/:id", authenticat, deleteContact);
-router.get("/contact/count", authenticat, countContact);
+router.get("/contact/count", countContact);
 
 export default router;

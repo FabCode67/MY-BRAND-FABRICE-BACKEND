@@ -11,7 +11,7 @@ import {
 const router = express.Router();
 
 router.post("/user", registerUser);
-router.get("/user", authenticat, getUser);
+router.get("/user", getUser);
 router.delete("/user/:id", authenticat, deleteUser);
 router.get("/user/count", authenticat, countUser);
 export default router;
