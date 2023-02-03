@@ -19,18 +19,23 @@ const { PORT } = process.env;
 
 const corsOpts = {
   origin: '*',
-
+  
   methods: [
-    'GET',
-    'POST',
-    'DELETE',
-    'PATCH'
+  'GET',
+  'POST',
+  'DELETE',
+  'PATCH'
   ],
-
+  
   allowedHeaders: [
-    'Content-Type',
+  'Content-Type',
+  'Authorization',
   ],
-};
+  };
+  
+  
+  
+  
 
 app.use(cors(corsOpts));
 
