@@ -55,12 +55,10 @@ export const login = async (req, res) => {
       return;
     }
 
-    let role;
+    let role= 'isUser';
     if (req.body.username === admin_username && req.body.password === admin_password) {
       role = "isAdmin";
-    } else {
-      role = "isUser";
-    }
+    } 
 
     const payload = {
       userId: user._id,
