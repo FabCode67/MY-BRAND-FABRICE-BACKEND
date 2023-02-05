@@ -1,6 +1,5 @@
 import express from "express";
-import multer from "multer";
-import path from "path";
+import upload from "../middlewares/multer";
 import { authenticat } from "../controllers/login";
 import {
   createBlog,
@@ -16,27 +15,27 @@ const router = express.Router();
 
 /*= ====================================================CLOUDINARY CONFIG============================================== */
 
-require("dotenv").config();
-const cloudinary = require("cloudinary").v2;
+// require("dotenv").config();
+// const cloudinary = require("cloudinary").v2;
 
-cloudinary.config({
-  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-  api_key: process.env.CLOUDINARY_API_KEY,
-  api_secret: process.env.CLOUDINARY_API_SECRET,
-});
+// cloudinary.config({
+//   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+//   api_key: process.env.CLOUDINARY_API_KEY,
+//   api_secret: process.env.CLOUDINARY_API_SECRET,
+// });
 /*= ====================================================CLOUDINARY CONFIG============================================== */
 
 /*= ====================================================UPLOAD FOLDER WITH MULTER============================================== */
 
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, path.join(__dirname, "..", "uploads"));
-  },
-  filename: (req, file, cb) => {
-    cb(null, file.originalname);
-  },
-});
-const upload = multer({ storage });
+// const storage = multer.diskStorage({
+//   destination: (req, file, cb) => {
+//     cb(null, path.join(__dirname, "..", "uploads"));
+//   },
+//   filename: (req, file, cb) => {
+//     cb(null, file.originalname);
+//   },
+// });
+// const upload = multer({ storage });
 /*= ====================================================UPLOAD FOLDER WITH MULTER============================================== */
 
 /*= ====================================================ALL ENDPOINTS============================================== */
