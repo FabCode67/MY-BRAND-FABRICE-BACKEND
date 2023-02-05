@@ -1,15 +1,79 @@
-import cloudinary from "cloudinary";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 import Blog from "../models/blog";
 import User from "../models/user";
+import cloudinary from "../middlewares/cloudinary";
 
 dotenv.config();
 const secretKey = process.env.SECRETKEY;
 /*= ====================================================CREATE BLOG========================================= */
 
-export const createBlog = async (req, res) => {
-  // Check if blog title and content already exist
+
+// const uploadToCloudinary = (filePath) => {
+//   return new Promise((resolve, reject) => {
+//     cloudinary.uploader.upload(filePath, function(error, result) {
+//       if (error) {
+//         reject(error);
+//       } else {
+//         resolve(result.secure_url);
+//       }
+//     });
+//   });
+// };
+
+
+// export const createBlog = async (req, res) => {
+//   // Check if blog title and content already exist
+//   const existingBlog = await Blog.findOne({
+//     blogTitle: req.body.blogTitle,
+//     blogContent: req.body.blogContent,
+//   });
+
+//   if (existingBlog) {
+//     return res.status(409).json({
+//       status: "fail",
+//       message: "Blog title and content already exist",
+//     });
+//   }
+
+//   try {
+//     // Upload image
+//     const imageUrl = await uploadToCloudinary(req.file.path);
+//     // Create new blog
+//     const blog = new Blog({
+//       blogTitle: req.body.blogTitle,
+//       blogContent: req.body.blogContent,
+//       blogImage: imageUrl,
+//     });
+
+//     // Save blog to database
+//     const savedBlog = await blog.save();
+
+//     res.status(201).json({
+//       status: "success",
+//       message: "Blog created successfully",
+//       data: {
+//         _id: savedBlog._id,
+//         blogTitle: savedBlog.blogTitle,
+//         blogContent: savedBlog.blogContent,
+//         blogImage: savedBlog.blogImage,
+//       },
+//     });
+
+//   } catch (error) {
+//     res.status(500).json({
+//       status: "fail",
+//       message: "An error occurred while uploading the image to Cloudinary",
+//     });
+//     console.log(error);
+//     console.log(imageUrl);
+
+//   }
+// };
+
+
+export const createBlog =   async (req, res)=> {
+    // Check if blog title and content already exist
   const existingBlog = await Blog.findOne({
     blogTitle: req.body.blogTitle,
     blogContent: req.body.blogContent,
@@ -21,19 +85,16 @@ export const createBlog = async (req, res) => {
       message: "Blog title and content already exist",
     });
   }
-
-  // Upload image
-  const result = await cloudinary.uploader.upload(req.file.path);
-
-  // Create new blog
+    const result = await cloudinary.uploader.upload(req.file.path);
+    console.log(result);
+      // const article = await Article.create(req.body);
   const blog = new Blog({
     blogTitle: req.body.blogTitle,
     blogContent: req.body.blogContent,
     blogImage: result.secure_url,
   });
 
-  // Save blog to database
-  blog.save().then((result) => {
+     blog.save().then((result) => {
     res.status(201).json({
       status: "success",
       message: "Blog created successfully",
@@ -46,6 +107,49 @@ export const createBlog = async (req, res) => {
     });
   });
 };
+
+
+
+
+
+// export const createBlog = async (req, res) => {
+//   // Check if blog title and content already exist
+//   const existingBlog = await Blog.findOne({
+//     blogTitle: req.body.blogTitle,
+//     blogContent: req.body.blogContent,
+//   });
+
+//   if (existingBlog) {
+//     return res.status(409).json({
+//       status: "fail",
+//       message: "Blog title and content already exist",
+//     });
+//   }
+
+//   // Upload image
+//   const result = await cloudinary.uploader.upload(req.file.path);
+
+//   // Create new blog
+//   const blog = new Blog({
+//     blogTitle: req.body.blogTitle,
+//     blogContent: req.body.blogContent,
+//     blogImage: result.secure_url,
+//   });
+
+//   // Save blog to database
+//   blog.save().then((result) => {
+//     res.status(201).json({
+//       status: "success",
+//       message: "Blog created successfully",
+//       data: {
+//         _id: result._id,
+//         blogTitle: result.blogTitle,
+//         blogContent: result.blogContent,
+//         blogImage: result.blogImage,
+//       },
+//     });
+//   });
+// };
 
 /*= ====================================================CREATE BLOG========================================= */
 

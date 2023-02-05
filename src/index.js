@@ -33,9 +33,6 @@ const corsOpts = {
   ],
   };
   
-  
-  
-  
 
 app.use(cors(corsOpts));
 
