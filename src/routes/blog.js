@@ -1,6 +1,16 @@
 import express from "express";
 import multer from "multer";
 import path from "path";
+import { authenticat } from "../controllers/login";
+import {
+  createBlog,
+  getAllBlogs,
+  getSingleBlog,
+  updateBlog,
+  deleteBlog,
+  addComment,
+  countComments,
+} from "../controllers/blog";
 
 const router = express.Router();
 
@@ -27,18 +37,6 @@ const storage = multer.diskStorage({
   },
 });
 const upload = multer({ storage });
-import  {authenticat}  from "../controllers/login";
-import {
-  createBlog,
-  getAllBlogs,
-  getSingleBlog,
-  updateBlog,
-  deleteBlog,
-  addComment,
-  deleteComment,
-  countComments,
-  countBlogs,
-}  from "../controllers/blog";
 /*= ====================================================UPLOAD FOLDER WITH MULTER============================================== */
 
 /*= ====================================================ALL ENDPOINTS============================================== */
@@ -48,15 +46,9 @@ router.get("/blog", getAllBlogs);
 router.get("/blog/:id", authenticat, getSingleBlog);
 router.patch("/blog/:id", upload.single("blogImage"), authenticat, updateBlog);
 router.delete("/blog/:id", authenticat, deleteBlog);
-router.delete(
-  "/blogs/:id/comments/:id",
-  authenticat,
-  deleteComment,
-  updateBlog,
-);
 router.post("/blog/:id/comment", authenticat, addComment, updateBlog);
 router.get("/blog/:id/comment/count", countComments);
-router.get("/blog/count", countBlogs);
+// router.get("/blog/count", countBlogs);
 /*= ====================================================ALL ENDPOINTS============================================== */
 
 export default router;

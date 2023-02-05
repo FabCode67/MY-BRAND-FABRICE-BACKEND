@@ -3,9 +3,11 @@ export default {
     tags: ["Blog API"],
     summary: "Update a blog by id",
     operationId: "updateBlog",
-    security: [{
-      BearerAuth: []
-  }],
+    security: [
+      {
+        BearerAuth: [],
+      },
+    ],
     parameters: [
       {
         in: "path",

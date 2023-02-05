@@ -15,13 +15,10 @@ export const login = async (req, res) => {
       user.password
     );
 
-    if (!user) {
-      res.status(401).send({ error: "Invalid username" });
-      return;
-    }
-
-    if (!isPasswordValid) {
-      res.status(401).send({ status: "fail", message: "Invalid password" });
+    if (!(isPasswordValid && user)) {
+      res
+        .status(401)
+        .send({ status: "fail", message: "Invalid password or Username" });
       return;
     }
 

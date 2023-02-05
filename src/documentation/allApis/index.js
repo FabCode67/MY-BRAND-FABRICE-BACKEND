@@ -15,16 +15,15 @@ import createBlog from "./blogSwagger/createBlog";
 import getSingleBlog from "./blogSwagger/getSingleBlog";
 import getAllBlogs from "./blogSwagger/getAllBllogs";
 import updateBlog from "./blogSwagger/updateBlog";
-import numberOfBlog from "./blogSwagger/numberOfBlog";
+// import numberOfBlog from "./blogSwagger/numberOfBlog";
 import deleteBlog from "./blogSwagger/deleteBlog";
 
 import addComment from "./blogSwagger/CommentSwagger/addComment";
-import deleteComment from "./blogSwagger/CommentSwagger/deleteComment";
+// import deleteComment from "./blogSwagger/CommentSwagger/deleteComment";
 import numberOfComment from "./blogSwagger/CommentSwagger/numberOfComment";
 
 export default {
   paths: {
-
     "/api/login": {
       ...login,
     },
@@ -32,8 +31,6 @@ export default {
     "/api/profile": {
       ...profile,
     },
-
-
 
     "/api/user": {
       ...postUser,
@@ -46,7 +43,6 @@ export default {
     "/api/user/{id}": {
       ...deleteUser,
     },
-
 
     "/api/contact/": {
       ...postContact,
@@ -64,9 +60,9 @@ export default {
       ...createBlog,
       ...getAllBlogs,
     },
-    "/api/blog/count": {
-      ...numberOfBlog,
-    },
+    // "/api/blog/count": {
+    //   ...numberOfBlog,
+    // },
 
     "/api/blog/{id}": {
       ...getSingleBlog,
@@ -80,8 +76,8 @@ export default {
     "/api/blog/{id}/comment/count": {
       ...numberOfComment,
     },
-    "/api/blog/{blogId}/comment/{commentId}": {
-      ...deleteComment,
-    },
+    // "/api/blog/{blogId}/comment/{commentId}": {
+    //   ...deleteComment,
+    // },
   },
 };
