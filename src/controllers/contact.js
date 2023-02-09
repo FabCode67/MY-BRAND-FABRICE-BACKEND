@@ -48,7 +48,7 @@ export const countContact = async (req, res) => {
   const contactCount = await contact.countDocuments();
   res.status(200).send({
     status: "success",
-    message: `There are ${contactCount} contacts in the collection.`,
+    message: contactCount,
   });
 };
 
