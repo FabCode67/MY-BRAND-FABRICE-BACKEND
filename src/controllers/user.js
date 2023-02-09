@@ -107,7 +107,7 @@ export const countUser = async (req, res) => {
 
     res.status(200).send({
       status: "success",
-      message: `There are ${userCount} users in the collection.`,
+      message: userCount
     });
   } catch (err) {
     res.status(500).send({ status: "fail", message: "Error counting users" });
